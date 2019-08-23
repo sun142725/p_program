@@ -1,0 +1,46 @@
+{
+  "pages": [
+    "pages/mine/mine",
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "龙猫",
+    "navigationBarTextStyle": "black"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "获取当前位置"
+    }
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#1ca1eb",
+    "borderStyle": "white",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "assets/image/icon_home.png",
+        "selectedIconPath": "assets/image/icon_home_active.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/logs/logs",
+        "iconPath": "assets/image/icon_colution.png",
+        "selectedIconPath": "assets/image/icon_clution_active.png",
+        "text": "启动日志"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "iconPath": "assets/image/icon_mine.png",
+        "selectedIconPath": "assets/image/icon_mine_active.png",
+        "text": "个人中心"
+      }
+    ]
+  },
+  "debug": true,
+  "sitemapLocation": "sitemap.json"
+}

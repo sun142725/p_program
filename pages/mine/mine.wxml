@@ -1,0 +1,13 @@
+<!--pages/mine/mine.wxml-->
+<view class="container">
+  <view class='mine-head-bg'>
+    <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+    <text>{{userInfo.nickName}}</text>
+  </view>
+  <view>
+    <text>性别: </text>
+    <text>{{userInfo.gender == 1 ? '男' : '女'}}</text>
+  </view>
+  
+  <text bindtap="choseAdress">选择收货地址</text>
+</view>
