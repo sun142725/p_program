@@ -1,0 +1,8 @@
+<template name="label">
+  <view class='custom-detail-array'>
+    <view class='label-view' wx:for="{{contentLabel}}" wx:for-item="itemInfo"  wx:for-index="labelI" wx:key="labelI">
+      <text class='label-title-text'>{{labelI}}</text>
+      <text>{{itemInfo}}</text>
+    </view>
+  </view>
+</template>

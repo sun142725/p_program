@@ -1,0 +1,4 @@
+<!--components/modal/modal.wxml-->
+<view class='custom-mask' bindtap='close'>
+  <view class="custom-modal {{show ? 'show' : ''}}"></view>
+</view>

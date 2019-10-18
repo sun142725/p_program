@@ -2,7 +2,11 @@
   "pages": [
     "pages/mine/mine",
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/testIM/chat",
+    "pages/consulting/triage",
+    "components/modal/modal",
+    "pages/consulting/chat"
   ],
   "window": {
     "backgroundTextStyle": "light",

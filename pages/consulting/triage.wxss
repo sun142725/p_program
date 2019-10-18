@@ -1,0 +1,91 @@
+/* pages/consulting/triage.wxss */
+page{
+  height: 100%;
+}
+.map-container{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+/* components/modal/modal.wxss */
+.custom-mask{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.1);
+  z-index: 9999;
+  overflow: hidden;
+}
+.custom-modal{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: auto;
+  max-height: 80%;
+  background: #fff;
+  transform: translateY(100%);
+  transition: all 0.5s;
+  border-radius: 16rpx 16rpx 0 0;
+  z-index: 2;
+  box-shadow: 0 -4rpx 16rpx 0 rgba(164,164,164,0.39);
+}
+.custom-modal.show{
+  transform: translateY(0);
+  z-index: 3;
+}
+/* 导诊中 */
+.triage-container{
+  padding: 28rpx 48rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: #9B9B9B;
+  line-height: 1.5;
+  padding-bottom: 60rpx;
+}
+.triage-container .triage-time{
+  font-size: 30px;
+  color: #4A90E2;
+}
+/* 分诊成功 */
+.success-container{
+  background: #FFFFFF;
+  box-shadow: 0 0 16rpx 0 rgba(164,164,164,0.39);
+  padding: 38rpx 20rpx;
+  font-size: 28rpx;
+  color: #9B9B9B;
+}
+.success-container .success-time{
+  color: #4A90E2;
+  margin-left: 6rpx;
+}
+/* 分诊失败 */
+.fail-title{
+  font-size: 32rpx;
+  color: #4A90E2;
+  line-height: 1.5;
+  padding-top: 42rpx;
+  text-align: center;
+}
+.fail-content{
+  font-size: 24rpx;
+  color: #9B9B9B;
+  line-height: 1.5;
+  margin: 6rpx 0 24rpx 0;
+  text-align: center;
+}
+.fail-btn{
+  background-image: linear-gradient(128deg, #ABD2FF 0%, #4A90E2 100%);
+  border-radius: 55rpx;
+  color:#fff;
+  font-size: 32rpx;
+  margin-bottom: 33rpx;
+  width: 94.7%;
+}
+
+.doctor-container{
+  padding: 28rpx 32rpx 38rpx 28rpx;
+  border-bottom: 2rpx solid #F6F6F6;
+}

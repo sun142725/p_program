@@ -1,0 +1,46 @@
+<import src="./components/custom.wxml"/>
+<!--pages/consulting/chat.wxml-->
+<view class='chat-container'>
+  <view class='chat-state'>
+    <text>状态</text>
+  </view>
+  <view class='doctor-container'>
+    <doctor-info isShowPrice="{{false}}"
+                 isShowBadge="{{isShowBadge}}"
+    ></doctor-info>
+    <view bindtap='changeIsShowBadge'>点击</view>
+  </view>
+  <scroll-view scroll-y="true" class='chat-history'>
+    <view class='msg-container' wx:for="{{messages}}" wx:key="{{index}}">
+       <view class='h6'><text>{{item.time | formatTime}}</text></view>
+        <view class="custom" wx:if="{{item.type == 'system'}}">
+          <template is="custom" data="{{...item}}" />
+        </view>
+        <view class="message-core" wx:else>
+            <view class="avar" wx:if="{{!item.isSend}}">
+                <image src="https://uat-gateway.dr-elephant.net/sysfile-oss/sysFile/downloadFile?url=https://oss-dx-uat.oss-cn-shanghai.aliyuncs.com/sysFile/UX/13698078888/20190124/2f1da089c6b5421e905a594f8fa1c637.png" mode='aspectFill'></image>
+            </view>
+            <view class="content {{item.isSend ? 'right' : 'left'}}">
+                <text class='context-text' wx:if="{{item.type=='text'}}">{{item.content}}</text>
+                <view class="content-image" wx:elif="{{item.type == 'image'}}">
+                    <image bindtap="showImg(message)" src="{{item.content}}" mode='aspectFill'></image>
+                </view>
+                <view class="content-file" wx:elif="{{item.type == 'file'}}">
+                    <a href="javascript:void(0)" bindtap="showPdf(item.content)" target="_blank" download="file">
+                        <i>{{item.content.split('/')[item.content.split('/').length-1]}}</i>
+                        <!-- <image src="../../../assets/images/pdf.png" mode='aspectFill'></image> -->
+                    </a>
+                </view>
+                <view wx:elif="{{item.type == 'custom'}}">
+                  <template is="custom" data="{{...item}}" />
+                </view>
+                <!-- <view v-else>{{}}</view> -->
+            </view>
+            <view class="avar" wx:if="{{item.isSend}}">
+                <image src="https://uat-gateway.dr-elephant.net/sysfile-oss/sysFile/downloadFile?url=https://oss-dx-uat.oss-cn-shanghai.aliyuncs.com/sysFile/UX/13698078888/20190124/2f1da089c6b5421e905a594f8fa1c637.png" mode='aspectFill'></image>
+            </view>
+        </view>
+    </view>
+  </scroll-view>
+  <view class='chat-state'>操作</view>
+</view>
