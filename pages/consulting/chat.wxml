@@ -14,7 +14,7 @@
     <view class='msg-container' wx:for="{{messages}}" wx:key="{{index}}">
        <view class='h6'><text>{{item.time | formatTime}}</text></view>
         <view class="custom" wx:if="{{item.type == 'system'}}">
-          <template is="custom" data="{{...item}}" />
+          <template is="custom" data="{{item, index}}" />
         </view>
         <view class="message-core" wx:else>
             <view class="avar" wx:if="{{!item.isSend}}">
@@ -32,7 +32,7 @@
                     </a>
                 </view>
                 <view wx:elif="{{item.type == 'custom'}}">
-                  <template is="custom" data="{{...item}}" />
+                  <template is="custom" data="{{item, index}}" />
                 </view>
                 <!-- <view v-else>{{}}</view> -->
             </view>

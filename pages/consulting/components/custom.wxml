@@ -4,16 +4,16 @@
 <template name="custom">
   <view class='custom-container'>
     <view class='custom-title'>
-      <text class='custom-title-text'>{{content.title}}</text>
-      <text>{{content.subTitle}}</text>
-      <image wx:if="{{content.isDiagnosis}}" class='tag-pic' src="https://uat-gateway.dr-elephant.net/sysfile-oss/sysFile/downloadFile?url=https://oss-dx-uat.oss-cn-shanghai.aliyuncs.com/sysFile/UX/13698078888/20190124/2f1da089c6b5421e905a594f8fa1c637.png" mode='aspectFill'></image>
+      <text class='custom-title-text'>{{item.content.title}}</text>
+      <text>{{item.content.subTitle}}</text>
+      <image wx:if="{{item.content.isDiagnosis}}" class='tag-pic' src="https://uat-gateway.dr-elephant.net/sysfile-oss/sysFile/downloadFile?url=https://oss-dx-uat.oss-cn-shanghai.aliyuncs.com/sysFile/UX/13698078888/20190124/2f1da089c6b5421e905a594f8fa1c637.png" mode='aspectFill'></image>
     </view>
     <view class='custom-detail'>
-      <template is="{{content.template}}" data="{{...content}}"/>
+      <template is="{{item.content.template}}" data="{{...item.content}}"/>
     </view>
-    <view class='custom-footer' wx:if="{{content.hasFooter}}">
+    <view class='custom-footer' wx:if="{{item.content.hasFooter}}">
       <view>
-        <text class='custom-footer-text'>健康档案</text>
+        <text class='custom-footer-text' bindtap='footClick' data-item="{{item}}" data-index="{{index}}">健康档案</text>
       </view>
     </view>
   </view>

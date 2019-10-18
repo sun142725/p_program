@@ -97,6 +97,16 @@ Page({
       isShowBadge: !_this.data.isShowBadge
     })
   },
+  footClick(e){
+    console.log(this)
+    // [e.currentTarget.dataset.state]
+    console.log('eeeeeeeeeeee', e)
+    var changeItem = 'todos[' + e.currentTarget.dataset.index + '].idDelete';  
+    this.setData({
+      ['messages[' + e.currentTarget.dataset.index + '].content.hasFooter']: false
+    })
+    console.log(this.data.messages)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
