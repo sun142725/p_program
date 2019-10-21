@@ -1,3 +1,10 @@
+// import TIM from './utils/tim-wx.js'
+// const tim = TIM.create({
+//   SDKAppID: 1400164159
+// })
+// wx.$tim = tim
+// console.log('wx.$tim', wx.$tim)
+// import imOperator from './pages/consulting/js/imOperator.js'
 //app.js
 App({
   onLaunch: function () {

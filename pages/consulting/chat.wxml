@@ -42,5 +42,16 @@
         </view>
     </view>
   </scroll-view>
-  <view class='chat-state'>操作</view>
+  <view class='chat-input'>
+    <textarea
+      class='send-text'
+      value="{{message}}"
+      auto-focus="{{true}}"
+      placeholder="请输入聊天内容"
+      bindlinechange="lineChange"
+      style="height: {{textareaHeight}}rpx"
+      bindinput="bindinput"
+    ></textarea>
+    <button type="primary" size="mini" bindtap="submitMsg" hover-class="other-button-hover">提交</button>
+  </view>
 </view>

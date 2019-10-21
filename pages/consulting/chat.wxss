@@ -18,11 +18,33 @@
   color: #CDA075;
 background-color:  #FFF5E6;
 }
+/*  聊天输入框 */
+.chat-input{
+  width: 100%;
+  background-color:  #FFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.chat-input textarea.send-text{
+  flex: 1;
+  outline: none;
+  min-height: 32rpx;
+  height: 32rpx;
+  border-radius: 8rpx;
+  border:none;
+  background-color: #fff;
+  font-size: 26rpx;
+  line-height: 1.5;
+  padding: 16rpx;
+  box-sizing: content-box;
+}
 .doctor-container{
   width: 100%;
   padding: 30rpx 32rpx 0rpx 28rpx;
   box-sizing: border-box;
 }
+/* 聊天历史wxss */
 .chat-history{
   flex: 1;
   background-color: #F8F8F8;
