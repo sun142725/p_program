@@ -3,6 +3,7 @@ import TIM from '../../utils/tim-wx.js'
 import create from '../../utils/create'
 import chatStore from '../../store/chatStore.js'
 import imOperator from './js/imOperator.js'
+console.log('chat.js')
 create(chatStore, {
 
   /**
@@ -44,6 +45,8 @@ create(chatStore, {
   },
   submitMsg(e){
     console.log('发送消息', this.data.message)
+    
+    this.searchGroupByID('test123')
   },
   bindinput(e){
     console.log(getCurrentPages())
@@ -134,10 +137,10 @@ create(chatStore, {
   onShow: function () {
     let _this = this
     setTimeout(()=>{
-      // imOperator.timLogin({}, () => {
-      //   _this.searchGroupByID('test123')
-      // })
-    }, 2000)
+      imOperator.timLogin({}, () => {
+        _this.searchGroupByID('test123')
+      })
+    }, 4000)
 
     chatStore.onChange((evt) => {
       console.log('evtevt', evt)

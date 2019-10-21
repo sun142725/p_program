@@ -1,17 +1,11 @@
-import TIM from '../../../utils/tim-wx.js'
-console.log('TIM', TIM)
-const tim = TIM.create({
-  SDKAppID: 1400164159
-})
-wx.$apptim = tim
-let promise = tim.login({ userID: '18000000002', userSig: 'eJxNj11Pg0AQRf*K2Wej*wXSvjW1RKAE2lJLn8jKLjB*AIHVVhr-u5RsjPN4Tu7M3AtK1rs7kefNZ60z-d0qNEcY3U4YpKo1FKC6ERIHm6FGi7YFmQmdsU7*S-XyLZvUNcQxJjYn1sxIdW6hU5ko9LSU2fgvBuUIwtVx6W2WwSmJq9PwTHu7CIdenYu0STn3nuLgFRbvLnN1OSS5CHDpVQvvpdzq*6hhzX6V8si1Ye3vpL9X8cajj5JEhzCEqHa2fmWOafi4FiXWw-jdzHaI4V*q66Gp0fwGUUwsQtnUGP38AnwwV0A_' });
-promise.then(function (imResponse) {
-  console.log(imResponse.data); // 登录成功
-}).catch(function (imError) {
-  console.warn('login error:', imError); // 登录失败的相关信息
-});
+// import TIM from '../../../utils/tim-wx.js'
+// console.log('TIM', TIM)
+// const tim = TIM.create({
+//   SDKAppID: 1400164159
+// })
+console.log('wx.$apptimchat.js', wx.$apptim)
 import chatStore from '../../../store/chatStore.js'
-console.log(wx)
+
 const imOperator = {
   reset: function (){
     Object.assign(chatStore.data, {
@@ -22,15 +16,14 @@ const imOperator = {
       currentConversation: {},
     })
   },
-  initListener: initListener,
   timLogin: function (param = {}, callback) {
-    console.log('登陆', tim)
+    console.log('登陆', wx.$apptim)
     wx.showLoading()
     chatStore.data.isLogin = false
     imOperator.reset()
-    tim.login({
+    wx.$apptim.login({
         userID: '18000000002',
-      userSig: 'eJxNj11Pg0AQRf*K2Wej*wXSvjW1RKAE2lJLn8jKLjB*AIHVVhr-u5RsjPN4Tu7M3AtK1rs7kefNZ60z-d0qNEcY3U4YpKo1FKC6ERIHm6FGi7YFmQmdsU7*S-XyLZvUNcQxJjYn1sxIdW6hU5ko9LSU2fgvBuUIwtVx6W2WwSmJq9PwTHu7CIdenYu0STn3nuLgFRbvLnN1OSS5CHDpVQvvpdzq*6hhzX6V8si1Ye3vpL9X8cajj5JEhzCEqHa2fmWOafi4FiXWw-jdzHaI4V*q66Gp0fwGUUwsQtnUGP38AnwwV0A_'
+      userSig: 'eJxNj11PgzAUhv*K6S3GtKUFtsQLnPixOWc2Fpk3BGnZDmZQSlGm8b9vI43xXD5vnvfk-UHx0*oqy-O6q0xqDkqiMcLocsAgZGWgAKlPkATYHrVxphSINDOpq8U-qxUf6RCdJYYx8RjhIxvKXoGWaVaYodT18J8G2xOYR*vJ40M2m3fLOlnGcJMsdFNLalrmFBJX04nT7Ju1XJSRouUmCCEKv7r*ufve3ml4H6nX2YtzH*vDrdpN-SLK3wKxC0lfbtyCJeG1fWZgfx5KuE88zgKfW-4pdQt1hcYXiGLCCXWHxej3CL9RWBU_'
       })
       .then(() => {
         wx.showLoading({
@@ -57,7 +50,7 @@ const imOperator = {
       })
   },
   logout: function() {
-    tim.logout().then(() => {
+    wx.$apptim.logout().then(() => {
       chatStore.data.isLogin = false
       imOperator.reset()
     })
@@ -67,12 +60,12 @@ const imOperator = {
     // 1.切换会话前，将切换前的会话进行已读上报
     // if (context.state.currentConversation.conversationID) {
     //   const prevConversationID = context.state.currentConversation.conversationID
-    //   tim.setMessageRead({ conversationID: prevConversationID })
+    //   wx.$apptim.setMessageRead({ conversationID: prevConversationID })
     // }
     // 2.待切换的会话也进行已读上报
-    // tim.setMessageRead({ conversationID })
+    // wx.$apptim.setMessageRead({ conversationID })
     // 3. 获取会话信息
-    return tim.getConversationProfile('GROUP' + conversationID).then(({ data }) => {
+    return wx.$apptim.getConversationProfile('GROUP' + conversationID).then(({ data }) => {
       // 3.1 更新当前会话
       console.log('updateCurrentConversation', data.conversation)
       chatStore.data.currentConversation = data.conversation
@@ -96,10 +89,10 @@ setTimeout(()=>{
 function initListener(){
   console.log('执行1次')
   console.log('getCurrentPages', getCurrentPages())
-  tim.on(TIM.EVENT.SDK_READY, onReadyStateUpdate, this)
-  tim.on(TIM.EVENT.SDK_NOT_READY, onReadyStateUpdate, this)
+  wx.$apptim.on(TIM.EVENT.SDK_READY, onReadyStateUpdate, this)
+  wx.$apptim.on(TIM.EVENT.SDK_NOT_READY, onReadyStateUpdate, this)
 
-  tim.on(TIM.EVENT.KICKED_OUT, event => {
+  wx.$apptim.on(TIM.EVENT.KICKED_OUT, event => {
     chatStore.data.isLogin = false
     reset()
     wx.showToast({
@@ -116,7 +109,7 @@ function initListener(){
   })
 
   // 出错统一处理
-  tim.on(TIM.EVENT.ERROR, event => {
+  wx.$apptim.on(TIM.EVENT.ERROR, event => {
     // 网络错误不弹toast && sdk未初始化完全报错
     console.log('ERROR', event)
     if (event.data.code !== 2800 && event.data.code !== 2999) {
@@ -128,8 +121,8 @@ function initListener(){
     }
   })
 
-  tim.on(TIM.EVENT.MESSAGE_RECEIVED, event => {
-    tim.ready(() => {
+  wx.$apptim.on(TIM.EVENT.MESSAGE_RECEIVED, event => {
+    wx.$apptim.ready(() => {
       if (event.name === 'onMessageReceived') {
         let id = chatStore.data.currentConversation.conversationID
         if (!id) {
@@ -146,17 +139,17 @@ function initListener(){
       }
     })
   })
-  tim.on(TIM.EVENT.CONVERSATION_LIST_UPDATED, event => {
+  wx.$apptim.on(TIM.EVENT.CONVERSATION_LIST_UPDATED, event => {
     chatStore.data.conversationList = event.data
   })
-  tim.on(TIM.EVENT.GROUP_LIST_UPDATED, event => {
+  wx.$apptim.on(TIM.EVENT.GROUP_LIST_UPDATED, event => {
     // store.commit('updateGroupList', event.data)
   })
-  tim.on(TIM.EVENT.BLACKLIST_UPDATED, event => {
+  wx.$apptim.on(TIM.EVENT.BLACKLIST_UPDATED, event => {
     // store.commit('updateBlacklist', event.data)
   })
 
-  tim.on(TIM.EVENT.GROUP_SYSTEM_NOTICE_RECEIVED, event => {
+  wx.$apptim.on(TIM.EVENT.GROUP_SYSTEM_NOTICE_RECEIVED, event => {
     // console.log('system message', event)
   })
 }
@@ -166,6 +159,6 @@ function onReadyStateUpdate({ name }) {
   chatStore.data.isSDKReady = isSDKReady
 }
 
-initListener()
+// initListener()
 
 export default imOperator
