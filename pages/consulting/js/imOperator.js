@@ -18,7 +18,7 @@ const imOperator = {
     imOperator.reset()
     wx.$apptim.login({
         userID: '18000000002',
-      userSig: 'eJxNj1FPwjAUhf*K6bPRdl03xtsYiylC5kAJ8NLUrWN1UspawWH878LSGO7jd-Kdm-MDXqeLB14U*y9lme20AEMAwX2PZSmUlZUU7QWiAXTnuZhrLUvGLcNteWOZsmF9dJV8CFHgIxK5UHxr2QrGK9uX4gD*a3J7AbN0ndA8qR8N1nk*V5NwsdLPzYRyrvz5RzZusuRz2xkog81KnONTTOt4lm3eTtH6fQnTSnWHET1Mj4amY5glXOxqT6vB0rw8EVxg98zK3XUoIiEKIcERcfwoWiP3CgzvgAcRQR7uF4PfP3neV38_'
+      userSig: 'eJxNj1tPgzAYhv*K6a3G9eM02B02kuGGuuwUuGk6WmqHUGTVHYz-fRshi9-l8*Z9vzy-aDGdP7I819*1oebYCDRCGD10WHFRG1Uo0V4g*Lg-q49Z0yhOmaF2y-*1drykXXQtORiD54Ab9KE4NKoVlBWmG7U9fKspeQHJc0riGeGbYht9hVXJtyAX7BRnr4nW2TJ-yz4rkgA3ganJ-dwvZPwRvoeT9T4h6cCMnfXGfxL*ixekx71nu8sJyIjLVRaPI11q2T8zqrqKgjuEIThwU-oR7U7pGo3ukIXBBcvujNHfGXb8Vzc_'
       })
       .then(() => {
         wx.showLoading({
@@ -74,9 +74,7 @@ const imOperator = {
     })
   }
 }
-setTimeout(()=>{
-  chatStore.data.messages.size(1)
-}, 3000)
+
 
 
 

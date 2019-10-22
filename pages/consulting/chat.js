@@ -1,18 +1,15 @@
 // pages/consulting/chat.js
 import TIM from '../../utils/tim-wx.js'
-// import create from '../../utils/create'
+import create from '../../utils/create'
 import chatStore from '../../store/chatStore.js'
 import imOperator from './js/imOperator.js'
 console.log('chat.js')
-Page({
-
+create(chatStore, {
   /**
    * 页面的初始数据
    */
   data: {
-    messages: [
-      
-    ],
+    messages: [],
     isShowBadge: false,
     textareaHeight: 0,
     message: '',
@@ -59,7 +56,7 @@ Page({
   searchGroupByID(groupID) {
     console.log('groupID', groupID)
     let _this = this
-    wx.$tim.searchGroupByID(groupID)
+    wx.$apptim.searchGroupByID(groupID)
       .then((imResponse) => {
         const group = imResponse.data.group; // 群组信息
         console.log('imResponse群组信息', imResponse)
@@ -73,7 +70,7 @@ Page({
   // 创建并加入群聊
   createGroup(groupID) {
     let _this = this
-    wx.$tim.createGroup({
+    wx.$apptim.createGroup({
       groupID: groupID,
       type: TIM.TYPES.GRP_PUBLIC,  //  GRP_PUBLIC
       name: '诊室',
@@ -101,7 +98,7 @@ Page({
       imOperator.checkoutConversation(groupID)
       return;
     }
-    wx.$tim.joinGroup({ groupID: groupID, type: TIM.TYPES.GRP_PUBLIC })
+    wx.$apptim.joinGroup({ groupID: groupID, type: TIM.TYPES.GRP_PUBLIC })
       .then(function (imResponse) {
         switch (imResponse.data.status) {
           case TIM.TYPES.JOIN_STATUS_WAIT_APPROVAL: break; // 等待管理员同意
@@ -136,16 +133,12 @@ Page({
    */
   onShow: function () {
     let _this = this
-    setTimeout(()=>{
-      imOperator.timLogin({}, () => {
-        _this.searchGroupByID('test123')
-      })
-    }, 4000)
+    // setTimeout(()=>{
+    //   imOperator.timLogin({}, () => {
+    //     _this.searchGroupByID('10000000')
+    //   })
+    // }, 4000)
 
-    // chatStore.onChange((evt) => {
-    //   console.log('evtevt', evt)
-    //   if (evt.isSDKReady) { }
-    // })
   },
 
   /**

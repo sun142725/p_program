@@ -75,7 +75,7 @@ function onReadyStateUpdate({ name }) {
   const isSDKReady = (name === TIM.EVENT.SDK_READY)
   chatStore.data.isSDKReady = isSDKReady
 }
-let promise = tim.login({ userID: '18000000002', userSig: 'eJxNj11rwjAUhv-KyK1jJK1prOBF54QV22lVVt1NyZpYz-qdxqGO-Xe1hLFz*bw87*H9QZtg-cTTtD5WOtHnRqIxwuixxyBkpWEPUt0gGWFzlol504BIuE5sJf5ZnciTPrpLQ4yJMyTUNaE8NaBkwve6L7Ud-KdBdgPhLJr6L-5syd9P8FGksceibOEGn6tym4b1Kqo2TnjwgqxrxfbC3zx4rgYxmdL5KN7lx4HrC6wXF93Oiy-2WuTNMu7YYcdKUEGbTSbmmYbyPpRQRhh2GaOGf0vVQV2h8QOyMKHEsvvF6PcKjflX6g__' })
+let promise = tim.login({ userID: '18000000002', userSig: 'eJxNj1tPgzAYhv*K6bVxPUCBJV5sbo56ypgg4k3TQKF1sWCpB2L8726EmH2Xz5vn-fL*gPTu8UKUZfthHHdDJ8EcQHA*Yl1J43StpT1AFMLp8BSLrtMVF44TW51YfbXnY3SUPAgR9ZAfTaH87rSVXNRuLCUU-mu6OYD7dXbFktXSaxmh5ilrozAoLRNC5MGSDErFarbaZQN5HTYP8HmWLlhzY6zXrVO29xQtzIui7xu3vXUujhJSXze7r7wvepJs87i4nJ45-XYcivwABRhjP5z4p7S9bg2YnwEMkY8wGReD3z8AX1af' })
 promise.then(function (imResponse) {
   console.log('imResponse.data', imResponse.data) // 登录成功
 }).catch(function (imError) {
