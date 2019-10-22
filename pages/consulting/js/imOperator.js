@@ -1,4 +1,5 @@
 console.log('wx.$apptimchat.js', wx.$apptim)
+import TIM from '../../../utils/tim-wx.js'
 import chatStore from '../../../store/chatStore.js'
 
 const imOperator = {
@@ -50,7 +51,7 @@ const imOperator = {
       imOperator.reset()
     })
   },
-  checkoutConversation: function(context, conversationID) {
+  checkoutConversation: function(conversationID) {
     // context.commit('resetCurrentMemberList')
     // 1.切换会话前，将切换前的会话进行已读上报
     // if (context.state.currentConversation.conversationID) {
@@ -64,6 +65,7 @@ const imOperator = {
       // 3.1 更新当前会话
       console.log('updateCurrentConversation', data.conversation)
       chatStore.data.currentConversation = data.conversation
+      chatStore.update()
       // 3.2 获取消息列表
       //   context.dispatch('getMessageList', conversationID)
       // 3.3 拉取第一页群成员列表
@@ -72,6 +74,34 @@ const imOperator = {
       //   }
       return Promise.resolve()
     })
+  },
+  addMessage: function (messageList){
+    console.log('messageListmessageListmessageList',messageList)
+    if (Array.isArray(messageList)){
+
+    } else {
+      console.log('chatStore.data.messages', chatStore.data.messages)
+      chatStore.data.messages[chatStore.data.messages.length] =imOperator.filterMessage(messageList)
+      chatStore.update()
+      console.log('chatStore.data.messages', chatStore.data.messages)
+    }
+    
+    setTimeout(() => {
+      wx.pageScrollTo({
+        scrollTop: 99999
+      })
+    }, 800)
+  },
+  filterMessage: function (message){
+    console.log(message.type == TIM.TYPES.MSG_CUSTOM)
+    var obj = {}
+    obj.content = message.type == TIM.TYPES.MSG_TEXT ? message.payload.text : message.type == TIM.TYPES.MSG_CUSTOM ? JSON.parse(message.payload.description) : ''
+    obj.type = message.type == TIM.TYPES.MSG_TEXT ? 'text' : message.type == TIM.TYPES.MSG_CUSTOM ? message.payload.data : ''
+    obj.id = message.ID
+    obj.isSend = message.from == '18000000002'
+    obj.time = message.time
+    console.log(obj)
+    return obj
   }
 }
 

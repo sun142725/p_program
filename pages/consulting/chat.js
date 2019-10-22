@@ -10,10 +10,11 @@ create(chatStore, {
    */
   data: {
     messages: [],
+    conversationList: [],
     isShowBadge: false,
     textareaHeight: 0,
     message: '',
-    groupID: ''
+    groupID: '10000000'
   },
   changeIsShowBadge(){
     let _this = this
@@ -42,8 +43,23 @@ create(chatStore, {
   },
   submitMsg(e){
     console.log('发送消息', this.data.message)
-    
-    this.searchGroupByID('test123')
+    let _this = this
+    let message = wx.$apptim.createTextMessage({
+      to: _this.data.groupID,
+      conversationType: TIM.TYPES.CONV_GROUP,
+      payload: {
+        text: _this.data.message
+      }
+    });
+    wx.$apptim.sendMessage(message)
+      .then(imResponse => {
+        console.log('消息发送成功', imResponse);
+        imOperator.addMessage(imResponse.data.message)
+        console.log('this.data.messages', this.data.messages)
+      })
+      .catch(imError => {
+        console.warn('sendMessage error:', imError);
+      })
   },
   bindinput(e){
     console.log(getCurrentPages())
@@ -88,8 +104,8 @@ create(chatStore, {
   },
   joinGroup(groupID) {
     let _this = this
-    console.log(this.conversationList, groupID)
-    let index = this.conversationList.findIndex((v) => {
+    console.log('conversationList', this.data.conversationList, groupID)
+    let index = this.data.conversationList.findIndex((v) => {
       return v.type == 'GROUP' && v.groupProfile.groupID == groupID
     })
     console.log(index)
@@ -133,12 +149,14 @@ create(chatStore, {
    */
   onShow: function () {
     let _this = this
-    // setTimeout(()=>{
-    //   imOperator.timLogin({}, () => {
-    //     _this.searchGroupByID('10000000')
-    //   })
-    // }, 4000)
-
+    console.log(chatStore)
+    chatStore.onChange = function(evn){
+      console.log('evn', evn)
+      if (evn.isSDKReady){
+        _this.searchGroupByID('10000000')
+      }
+    }
+   
   },
 
   /**

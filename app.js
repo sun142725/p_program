@@ -5,12 +5,14 @@ const tim = TIM.create({
 })
 wx.$apptim = tim
 import chatStore from './store/chatStore.js'
+import imOperator from './pages/consulting/js/imOperator.js'
 tim.setLogLevel(1);
 tim.on(TIM.EVENT.SDK_READY, onReadyStateUpdate, this)
 tim.on(TIM.EVENT.SDK_NOT_READY, onReadyStateUpdate, this)
 tim.on(TIM.EVENT.KICKED_OUT, event => {
   chatStore.data.isLogin = false
-  reset()
+  chatStore.update()
+  imOperator.reset()
   wx.showToast({
     title: '你已被踢下线',
     icon: 'none',
@@ -47,6 +49,7 @@ tim.on(TIM.EVENT.MESSAGE_RECEIVED, event => {
       let list = []
       event.data.forEach(item => {
         if (item.conversationID === id) {
+          // imOperator.addMessage
           state.messages = [...state.messages, filterMessage(item)]
         } else {
           // 未读计数 +1
@@ -57,7 +60,9 @@ tim.on(TIM.EVENT.MESSAGE_RECEIVED, event => {
 })
 tim.on(TIM.EVENT.CONVERSATION_LIST_UPDATED, event => {
   console.log('CONVERSATION_LIST_UPDATED', event.data)
-  chatStore.data.conversationList = event.data
+  chatStore.data.conversationList = []
+  chatStore.data.conversationList.push(...event.data)
+  chatStore.update()
 })
 tim.on(TIM.EVENT.GROUP_LIST_UPDATED, event => {
   // store.commit('updateGroupList', event.data)
@@ -74,8 +79,9 @@ function onReadyStateUpdate({ name }) {
   console.log('onReadyStateUpdate', name)
   const isSDKReady = (name === TIM.EVENT.SDK_READY)
   chatStore.data.isSDKReady = isSDKReady
+  chatStore.update()
 }
-let promise = tim.login({ userID: '18000000002', userSig: 'eJxNj1tPgzAYhv*K6bVxPUCBJV5sbo56ypgg4k3TQKF1sWCpB2L8726EmH2Xz5vn-fL*gPTu8UKUZfthHHdDJ8EcQHA*Yl1J43StpT1AFMLp8BSLrtMVF44TW51YfbXnY3SUPAgR9ZAfTaH87rSVXNRuLCUU-mu6OYD7dXbFktXSaxmh5ilrozAoLRNC5MGSDErFarbaZQN5HTYP8HmWLlhzY6zXrVO29xQtzIui7xu3vXUujhJSXze7r7wvepJs87i4nJ45-XYcivwABRhjP5z4p7S9bg2YnwEMkY8wGReD3z8AX1af' })
+let promise = tim.login({ userID: '18000000002', userSig: 'eJxNj8tuwjAQRX*l8rpq-EjCQ*qmppgUEAoUoa4sY5vgoDiW40Kjqv8ORGnVWZ6jOzP3G7wvNk9CyvrTBh5ap8EYQPDYYaO0DeZgtL9BNIT94F4L54ziInDi1b9Uo068U-dQDCFKY5SMeqm-nPGai0PolpIU-sVMcQPL1y3Ncroq88ILFs3ZRTnbpLLBgpnKL7bM5aujsNJuEKGuiousoJpOltOXti2zdXjb4bXQw8msPF0*oqP0e5ZHc8Jmu-N0Xz-3x4Kp7kVRMkADnMLR7xNn7RtTWzB*ABiiBGHSNQY-V6anV9E_' })
 promise.then(function (imResponse) {
   console.log('imResponse.data', imResponse.data) // 登录成功
 }).catch(function (imError) {

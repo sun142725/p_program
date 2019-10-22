@@ -86,6 +86,13 @@ export default {
         isSend: true,
         time: '1569568477'
       },
+      {
+        content: "dsd",
+        id: "GROUP10000000-11-75000159-1",
+        isSend: true,
+        time: 1571726798,
+        type: "text"
+      }
     ], //  聊天记录
     currentConversation: {},
     conversationList: []
