@@ -1,8 +1,3 @@
-// import TIM from '../../../utils/tim-wx.js'
-// console.log('TIM', TIM)
-// const tim = TIM.create({
-//   SDKAppID: 1400164159
-// })
 console.log('wx.$apptimchat.js', wx.$apptim)
 import chatStore from '../../../store/chatStore.js'
 
@@ -23,7 +18,7 @@ const imOperator = {
     imOperator.reset()
     wx.$apptim.login({
         userID: '18000000002',
-      userSig: 'eJxNj11PgzAUhv*K6S3GtKUFtsQLnPixOWc2Fpk3BGnZDmZQSlGm8b9vI43xXD5vnvfk-UHx0*oqy-O6q0xqDkqiMcLocsAgZGWgAKlPkATYHrVxphSINDOpq8U-qxUf6RCdJYYx8RjhIxvKXoGWaVaYodT18J8G2xOYR*vJ40M2m3fLOlnGcJMsdFNLalrmFBJX04nT7Ju1XJSRouUmCCEKv7r*ufve3ml4H6nX2YtzH*vDrdpN-SLK3wKxC0lfbtyCJeG1fWZgfx5KuE88zgKfW-4pdQt1hcYXiGLCCXWHxej3CL9RWBU_'
+      userSig: 'eJxNj1FPwjAUhf*K6bPRdl03xtsYiylC5kAJ8NLUrWN1UspawWH878LSGO7jd-Kdm-MDXqeLB14U*y9lme20AEMAwX2PZSmUlZUU7QWiAXTnuZhrLUvGLcNteWOZsmF9dJV8CFHgIxK5UHxr2QrGK9uX4gD*a3J7AbN0ndA8qR8N1nk*V5NwsdLPzYRyrvz5RzZusuRz2xkog81KnONTTOt4lm3eTtH6fQnTSnWHET1Mj4amY5glXOxqT6vB0rw8EVxg98zK3XUoIiEKIcERcfwoWiP3CgzvgAcRQR7uF4PfP3neV38_'
       })
       .then(() => {
         wx.showLoading({

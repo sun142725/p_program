@@ -90,4 +90,5 @@ export default {
     currentConversation: {},
     conversationList: []
   },
+  debug: true
 }

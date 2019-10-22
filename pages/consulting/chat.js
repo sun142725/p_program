@@ -1,10 +1,10 @@
 // pages/consulting/chat.js
 import TIM from '../../utils/tim-wx.js'
-import create from '../../utils/create'
+// import create from '../../utils/create'
 import chatStore from '../../store/chatStore.js'
 import imOperator from './js/imOperator.js'
 console.log('chat.js')
-create(chatStore, {
+Page({
 
   /**
    * 页面的初始数据
@@ -142,10 +142,10 @@ create(chatStore, {
       })
     }, 4000)
 
-    chatStore.onChange((evt) => {
-      console.log('evtevt', evt)
-      if (evt.isSDKReady) { }
-    })
+    // chatStore.onChange((evt) => {
+    //   console.log('evtevt', evt)
+    //   if (evt.isSDKReady) { }
+    // })
   },
 
   /**

@@ -1,4 +1,5 @@
-import TIM from './utils/tim-wx.js'
+import * as TIM from './utils/tim-wx.js'
+require('./utils/tim-wx.js')
 const tim = TIM.create({
   SDKAppID: 1400164159
 })
@@ -74,7 +75,7 @@ function onReadyStateUpdate({ name }) {
   const isSDKReady = (name === TIM.EVENT.SDK_READY)
   chatStore.data.isSDKReady = isSDKReady
 }
-let promise = tim.login({ userID: '18000000002', userSig: 'eJxNj11PgzAUhv*K6S3GtKUFtsQLnPixOWc2Fpk3BGnZDmZQSlGm8b9vI43xXD5vnvfk-UHx0*oqy-O6q0xqDkqiMcLocsAgZGWgAKlPkATYHrVxphSINDOpq8U-qxUf6RCdJYYx8RjhIxvKXoGWaVaYodT18J8G2xOYR*vJ40M2m3fLOlnGcJMsdFNLalrmFBJX04nT7Ju1XJSRouUmCCEKv7r*ufve3ml4H6nX2YtzH*vDrdpN-SLK3wKxC0lfbtyCJeG1fWZgfx5KuE88zgKfW-4pdQt1hcYXiGLCCXWHxej3CL9RWBU_' })
+let promise = tim.login({ userID: '18000000002', userSig: 'eJxNj11rwjAUhv-KyK1jJK1prOBF54QV22lVVt1NyZpYz-qdxqGO-Xe1hLFz*bw87*H9QZtg-cTTtD5WOtHnRqIxwuixxyBkpWEPUt0gGWFzlol504BIuE5sJf5ZnciTPrpLQ4yJMyTUNaE8NaBkwve6L7Ud-KdBdgPhLJr6L-5syd9P8FGksceibOEGn6tym4b1Kqo2TnjwgqxrxfbC3zx4rgYxmdL5KN7lx4HrC6wXF93Oiy-2WuTNMu7YYcdKUEGbTSbmmYbyPpRQRhh2GaOGf0vVQV2h8QOyMKHEsvvF6PcKjflX6g__' })
 promise.then(function (imResponse) {
   console.log('imResponse.data', imResponse.data) // 登录成功
 }).catch(function (imError) {
