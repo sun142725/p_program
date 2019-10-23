@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "doctor-info": "./doctor-info"
+    "doctor-info": "./doctor-info",
+    "pick-view-city": "./components/pick-view-city"
   }
 }

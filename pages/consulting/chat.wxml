@@ -10,7 +10,7 @@
     ></doctor-info>
     <view bindtap='changeIsShowBadge'>点击</view>
   </view>
-  <scroll-view scroll-y="true" class='chat-history'>
+  <scroll-view scroll-y="true" class='chat-history' scroll-top="{{scrollTop}}" scroll-with-animation="{{true}}">
     <view class='msg-container' wx:for="{{messages}}" wx:key="{{index}}">
        <view class='h6'><text>{{item.time | formatTime}}</text></view>
         <view class="custom" wx:if="{{item.type == 'system'}}">
@@ -42,16 +42,40 @@
         </view>
     </view>
   </scroll-view>
-  <view class='chat-input'>
-    <textarea
-      class='send-text'
-      value="{{message}}"
-      auto-focus="{{true}}"
-      placeholder="请输入聊天内容"
-      bindlinechange="lineChange"
-      style="height: {{textareaHeight}}rpx"
-      bindinput="bindinput"
-    ></textarea>
-    <button type="primary" size="mini" bindtap="submitMsg" hover-class="other-button-hover">提交</button>
+  <view wx:if="{{showInput}}" class="msg-control {{isShowFn ? 'active': ''}}">
+    <view class="chat-input">
+      <textarea
+        class='send-text'
+        value="{{message}}"
+        auto-focus="{{true}}"
+        placeholder="请输入聊天内容"
+        bindlinechange="lineChange"
+        style="height: {{textareaHeight}}rpx"
+        bindinput="bindinput"
+      ></textarea>
+      <button type="primary" size="mini" bindtap="submitMsg" hover-class="other-button-hover">提交</button>
+    </view>
+    <view class='msg-fn'>
+      <view class='msg-fn-container'>
+        <view class='fn-view' bindtap='chooseImage' data-sourcetype="album">
+          <image src='../../assets/image/icon_chat2.png' mode='aspectFill'></image>
+          <text>相册</text>
+        </view>
+        <view class='fn-view' bindtap='chooseImage' data-sourcetype="camera">
+          <image src='../../assets/image/icon_chat3.png' mode='aspectFill'></image>
+          <text>拍照</text>
+        </view>
+        <view class='fn-view'>
+          <image src='../../assets/image/icon_chat4.png' mode='aspectFill'></image>
+          <text>用药</text>
+        </view>
+        <view class='fn-view'>
+          <image src='../../assets/image/icon_chat1.png' mode='aspectFill'></image>
+          <text>就诊记录</text>
+        </view>
+      </view>
+    </view>
   </view>
+  <pick-view-city showCityPickView="{{showCityPickView}}"></pick-view-city>
 </view>
+

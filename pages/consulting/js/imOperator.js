@@ -1,53 +1,58 @@
 console.log('wx.$apptimchat.js', wx.$apptim)
 import TIM from '../../../utils/tim-wx.js'
-import chatStore from '../../../store/chatStore.js'
+import store from '../../../store.js'
 
 const imOperator = {
   reset: function (){
-    Object.assign(chatStore.data, {
+    Object.assign(store.data, {
       currentUserProfile: {},
       isLogin: false,
       isSDKReady: false, // TIM SDK 是否 ready
       conversationList: [],
       currentConversation: {},
     })
+    store.update()
   },
   timLogin: function (param = {}, callback) {
     console.log('登陆', wx.$apptim)
     wx.showLoading()
-    chatStore.data.isLogin = false
+    store.data.isLogin = false
     imOperator.reset()
-    wx.$apptim.login({
-        userID: '18000000002',
-      userSig: 'eJxNj1tPgzAYhv*K6a3G9eM02B02kuGGuuwUuGk6WmqHUGTVHYz-fRshi9-l8*Z9vzy-aDGdP7I819*1oebYCDRCGD10WHFRG1Uo0V4g*Lg-q49Z0yhOmaF2y-*1drykXXQtORiD54Ab9KE4NKoVlBWmG7U9fKspeQHJc0riGeGbYht9hVXJtyAX7BRnr4nW2TJ-yz4rkgA3ganJ-dwvZPwRvoeT9T4h6cCMnfXGfxL*ixekx71nu8sJyIjLVRaPI11q2T8zqrqKgjuEIThwU-oR7U7pGo3ukIXBBcvujNHfGXb8Vzc_'
-      })
-      .then(() => {
-        wx.showLoading({
-          title: '登录成功'
+    getLoginInfo2({})
+      .then(res => {
+        // console.log(res)
+        let promise = tim.login({
+          userID: res.data.userID, userSig: res.data.userSig
         })
-        console.log('登陆成功')
-        chatStore.data.isLogin = true
-        callback && callback()
-      })
-      .catch(imError => {
-        if (imError.code === 2000) {
-          wx.showToast({
-            title: imError.message + ', 请检查是否正确填写了 SDKAPPID',
-            icon: 'none',
-            duration: 1500
+        promise.then(function (imResponse) {
+          wx.showLoading({
+            title: '登录成功'
           })
-        } else {
-          wx.showToast({
-            title: imError.message,
-            icon: 'none',
-            duration: 1500
-          })
-        }
+          store.data.isLogin = true
+          store.update()
+          callback && callback()
+          console.log('imResponse.data', imResponse.data) // 登录成功
+        }).catch(function (imError) {
+          if (imError.code === 2000) {
+            wx.showToast({
+              title: imError.message + ', 请检查是否正确填写了 SDKAPPID',
+              icon: 'none',
+              duration: 1500
+            })
+          } else {
+            wx.showToast({
+              title: imError.message,
+              icon: 'none',
+              duration: 1500
+            })
+          }
+          console.warn('login error:', imError) // 登录失败的相关信息
+        })
       })
   },
   logout: function() {
     wx.$apptim.logout().then(() => {
-      chatStore.data.isLogin = false
+      store.data.isLogin = false
       imOperator.reset()
     })
   },
@@ -64,8 +69,8 @@ const imOperator = {
     return wx.$apptim.getConversationProfile('GROUP' + conversationID).then(({ data }) => {
       // 3.1 更新当前会话
       console.log('updateCurrentConversation', data.conversation)
-      chatStore.data.currentConversation = data.conversation
-      chatStore.update()
+      store.data.currentConversation = data.conversation
+      store.update()
       // 3.2 获取消息列表
       //   context.dispatch('getMessageList', conversationID)
       // 3.3 拉取第一页群成员列表
@@ -80,17 +85,16 @@ const imOperator = {
     if (Array.isArray(messageList)){
 
     } else {
-      console.log('chatStore.data.messages', chatStore.data.messages)
-      chatStore.data.messages[chatStore.data.messages.length] =imOperator.filterMessage(messageList)
-      chatStore.update()
-      console.log('chatStore.data.messages', chatStore.data.messages)
+      console.log('store.data.messages', store.data.messages)
+      store.data.messages[store.data.messages.length] =imOperator.filterMessage(messageList)
+      store.update()
+      console.log('store.data.messages', store.data.messages)
     }
     
     setTimeout(() => {
-      wx.pageScrollTo({
-        scrollTop: 99999
-      })
-    }, 800)
+      store.data.scrollTop = store.data.messages.length * 200
+      store.update()
+    }, 500)
   },
   filterMessage: function (message){
     console.log(message.type == TIM.TYPES.MSG_CUSTOM)
@@ -98,10 +102,10 @@ const imOperator = {
     obj.content = message.type == TIM.TYPES.MSG_TEXT ? message.payload.text : message.type == TIM.TYPES.MSG_CUSTOM ? JSON.parse(message.payload.description) : ''
     obj.type = message.type == TIM.TYPES.MSG_TEXT ? 'text' : message.type == TIM.TYPES.MSG_CUSTOM ? message.payload.data : ''
     obj.id = message.ID
-    obj.isSend = message.from == '18000000002'
+    obj.isSend = message.from == '15100000001'
     obj.time = message.time
     console.log(obj)
-    return obj
+    return JSON.parse(JSON.stringify(obj))
   }
 }
 
@@ -116,7 +120,7 @@ function initListener(){
   wx.$apptim.on(TIM.EVENT.SDK_NOT_READY, onReadyStateUpdate, this)
 
   wx.$apptim.on(TIM.EVENT.KICKED_OUT, event => {
-    chatStore.data.isLogin = false
+    store.data.isLogin = false
     reset()
     wx.showToast({
       title: '你已被踢下线',
@@ -147,7 +151,7 @@ function initListener(){
   wx.$apptim.on(TIM.EVENT.MESSAGE_RECEIVED, event => {
     wx.$apptim.ready(() => {
       if (event.name === 'onMessageReceived') {
-        let id = chatStore.data.currentConversation.conversationID
+        let id = store.data.currentConversation.conversationID
         if (!id) {
           return
         }
@@ -163,7 +167,7 @@ function initListener(){
     })
   })
   wx.$apptim.on(TIM.EVENT.CONVERSATION_LIST_UPDATED, event => {
-    chatStore.data.conversationList = event.data
+    store.data.conversationList = event.data
   })
   wx.$apptim.on(TIM.EVENT.GROUP_LIST_UPDATED, event => {
     // store.commit('updateGroupList', event.data)
@@ -179,7 +183,7 @@ function initListener(){
 function onReadyStateUpdate({ name }) {
   console.log('onReadyStateUpdate', name)
   const isSDKReady = (name === TIM.EVENT.SDK_READY)
-  chatStore.data.isSDKReady = isSDKReady
+  store.data.isSDKReady = isSDKReady
 }
 
 // initListener()

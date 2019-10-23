@@ -1,17 +1,17 @@
 import * as TIM from './utils/tim-wx.js'
-require('./utils/tim-wx.js')
 const tim = TIM.create({
   SDKAppID: 1400164159
 })
 wx.$apptim = tim
-import chatStore from './store/chatStore.js'
+import store from './store.js'
 import imOperator from './pages/consulting/js/imOperator.js'
+import { getLoginInfo2 } from './pages/consulting/js/api.js'
 tim.setLogLevel(1);
 tim.on(TIM.EVENT.SDK_READY, onReadyStateUpdate, this)
 tim.on(TIM.EVENT.SDK_NOT_READY, onReadyStateUpdate, this)
 tim.on(TIM.EVENT.KICKED_OUT, event => {
-  chatStore.data.isLogin = false
-  chatStore.update()
+  store.data.isLogin = false
+  store.update()
   imOperator.reset()
   wx.showToast({
     title: '你已被踢下线',
@@ -42,15 +42,16 @@ tim.on(TIM.EVENT.ERROR, event => {
 tim.on(TIM.EVENT.MESSAGE_RECEIVED, event => {
   tim.ready(() => {
     if (event.name === 'onMessageReceived') {
-      let id = chatStore.data.currentConversation.conversationID
+      let id = store.data.currentConversation.conversationID
       if (!id) {
         return
       }
       let list = []
+      console.log('onMessageReceived', event)
       event.data.forEach(item => {
         if (item.conversationID === id) {
-          // imOperator.addMessage
-          state.messages = [...state.messages, filterMessage(item)]
+          imOperator.addMessage(item)
+          // state.messages = [...state.messages, filterMessage(item)]
         } else {
           // 未读计数 +1
         }
@@ -60,9 +61,9 @@ tim.on(TIM.EVENT.MESSAGE_RECEIVED, event => {
 })
 tim.on(TIM.EVENT.CONVERSATION_LIST_UPDATED, event => {
   console.log('CONVERSATION_LIST_UPDATED', event.data)
-  chatStore.data.conversationList = []
-  chatStore.data.conversationList.push(...event.data)
-  chatStore.update()
+  store.data.conversationList = []
+  store.data.conversationList.push(...event.data)
+  store.update()
 })
 tim.on(TIM.EVENT.GROUP_LIST_UPDATED, event => {
   // store.commit('updateGroupList', event.data)
@@ -78,16 +79,22 @@ tim.on(TIM.EVENT.GROUP_SYSTEM_NOTICE_RECEIVED, event => {
 function onReadyStateUpdate({ name }) {
   console.log('onReadyStateUpdate', name)
   const isSDKReady = (name === TIM.EVENT.SDK_READY)
-  chatStore.data.isSDKReady = isSDKReady
-  chatStore.update()
+  store.data.isSDKReady = isSDKReady
+  store.update()
 }
-let promise = tim.login({ userID: '18000000002', userSig: 'eJxNj8tuwjAQRX*l8rpq-EjCQ*qmppgUEAoUoa4sY5vgoDiW40Kjqv8ORGnVWZ6jOzP3G7wvNk9CyvrTBh5ap8EYQPDYYaO0DeZgtL9BNIT94F4L54ziInDi1b9Uo068U-dQDCFKY5SMeqm-nPGai0PolpIU-sVMcQPL1y3Ncroq88ILFs3ZRTnbpLLBgpnKL7bM5aujsNJuEKGuiousoJpOltOXti2zdXjb4bXQw8msPF0*oqP0e5ZHc8Jmu-N0Xz-3x4Kp7kVRMkADnMLR7xNn7RtTWzB*ABiiBGHSNQY-V6anV9E_' })
-promise.then(function (imResponse) {
-  console.log('imResponse.data', imResponse.data) // 登录成功
-}).catch(function (imError) {
-  console.warn('login error:', imError) // 登录失败的相关信息
-})
+getLoginInfo2({})
+  .then(res=>{
+    // console.log(res)
+    let promise = tim.login({
+      userID: res.data.userID, userSig: res.data.userSig})
+    promise.then(function (imResponse) {
+      console.log('imResponse.data', imResponse.data) // 登录成功
+    }).catch(function (imError) {
+      console.warn('login error:', imError) // 登录失败的相关信息
+    })
+  })
 console.log('app.js')
+const app = getApp();
 //app.js
 App({
   onLaunch: function () {
@@ -123,8 +130,21 @@ App({
         }
       }
     })
+    wx.getSystemInfo({
+      success: function (res) {
+        //model中包含着设备信息
+        console.log('res.model', res.model)
+        var model = res.model
+        // if (model.search('iPhone X') != -1) {
+        //   app.globalData.isIpx = true;
+        // } else {
+        //   app.globalData.isIpx = false;
+        // }
+      }
+    })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    isIpx: false
   }
 })

@@ -19,6 +19,11 @@
 background-color:  #FFF5E6;
 }
 /*  聊天输入框 */
+.msg-control{
+  width: 100%;
+  background-color:  #FFF;
+}
+
 .chat-input{
   width: 100%;
   background-color:  #FFF;
@@ -39,6 +44,36 @@ background-color:  #FFF5E6;
   padding: 16rpx;
   box-sizing: content-box;
 }
+.msg-control .msg-fn{
+  background: red;
+  height: 0;
+  transition: all 0.5s;
+  overflow: hidden;
+}
+.msg-control.active .msg-fn{
+  height: 240rpx;
+}
+.msg-control .msg-fn .msg-fn-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx;
+}
+.msg-control .msg-fn .msg-fn-container .fn-view{
+  
+}
+.msg-control .msg-fn .msg-fn-container .fn-view image{
+  width: 100rpx;
+  height: 100rpx;
+  display: block;
+}
+.msg-control .msg-fn .msg-fn-container .fn-view text{
+  font-size: 28rpx;
+  color:#333;
+  text-align: center;
+  display: block;
+}
+
 .doctor-container{
   width: 100%;
   padding: 30rpx 32rpx 0rpx 28rpx;
@@ -253,3 +288,4 @@ background-color:  #FFF5E6;
     justify-content: flex-end;
     align-items: center;
   }
+  
