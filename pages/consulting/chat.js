@@ -165,8 +165,8 @@ create(store, {
       complete: function (res) { },
     })
   },
-  bindPickerChange(e){
-    console.log('eee', e)
+  confirmCity(data){
+    console.log('1111111',data)
   },
   /**
    * 生命周期函数--监听页面加载

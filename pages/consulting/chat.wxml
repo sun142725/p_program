@@ -76,6 +76,6 @@
       </view>
     </view>
   </view>
-  <pick-view-city showCityPickView="{{showCityPickView}}"></pick-view-city>
+  <pick-view-city showCityPickView="{{showCityPickView}}" bind:confirmCity="confirmCity"></pick-view-city>
 </view>
 

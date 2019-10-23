@@ -133,7 +133,7 @@ App({
     wx.getSystemInfo({
       success: function (res) {
         //model中包含着设备信息
-        console.log('res.model', res.model)
+        console.log('res.model', res)
         var model = res.model
         // if (model.search('iPhone X') != -1) {
         //   app.globalData.isIpx = true;

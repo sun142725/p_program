@@ -14,20 +14,32 @@ Component({
    * 组件的初始数据
    */
   data: {
-    showCity: false
+    showCity: false,
+    cityIndex: [0,0]
   },
-
   /**
    * 组件的方法列表
    */
   methods: {
     cancelbtn: function(){
+      console.log('dianjiquxiao', this)
       this.setData({
         showCity: false
-      }, ()=>{
+      })
+      setTimeout(()=>{
         this.setData({
-          showCity: true
+          showCityPickView: false
         })
+      }, 500)
+    },
+    confirmBtn(){
+      this.triggerEvent('confirmCity', this.data.cityIndex)
+      this.cancelbtn()
+    },
+    bindchange(e){
+      console.log(e.detail.value)
+      this.setData({
+        cityIndex: e.detail.value
       })
     }
   },

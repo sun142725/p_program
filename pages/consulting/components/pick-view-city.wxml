@@ -2,10 +2,10 @@
  <view wx:if="{{showCityPickView}}" class='pick-view-mask'>
     <view class="pick-view-container {{showCity ? 'active' : ''}}">
       <view class="pick-view-control">
-        <text>取消</text>
-        <text>确定</text>
+        <text bindtap="cancelbtn">取消</text>
+        <text bindtap="confirmBtn">确定</text>
       </view>
-      <picker-view indicator-style="height: 50px;" style="width: 100%; height: 300px;">
+      <picker-view indicator-style="height: 50px;" bindchange="bindchange" style="width: 100%; height: 300px;">
         <picker-view-column>
           <view wx:for="{{[1,2,3,4,5,65,8]}}" style="line-height: 50px;text-align: center;">{{item}}年</view>
         </picker-view-column>
