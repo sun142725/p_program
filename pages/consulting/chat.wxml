@@ -1,4 +1,6 @@
-<import src="./components/custom.wxml"/>
+<wxs src="./../../filter/date.wxs" module="DateFr" />
+
+<import src="./templates/custom.wxml"/>
 <!--pages/consulting/chat.wxml-->
 <view class='chat-container'>
   <view class='chat-state'>
@@ -12,7 +14,7 @@
   </view>
   <scroll-view scroll-y="true" class='chat-history' scroll-top="{{scrollTop}}" scroll-with-animation="{{true}}">
     <view class='msg-container' wx:for="{{messages}}" wx:key="{{index}}">
-       <view class='h6'><text>{{item.time | formatTime}}</text></view>
+       <view class='h6'><text>{{DateFr.formatTime(item.time)}}</text></view>
         <view class="custom" wx:if="{{item.type == 'system'}}">
           <template is="custom" data="{{item, index}}" />
         </view>

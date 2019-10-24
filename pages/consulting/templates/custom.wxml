@@ -1,0 +1,21 @@
+<import src="./custom-text.wxml"/>
+<import src="./custom-label.wxml"/>
+<import src="./custom-textImage.wxml"/>
+<import src="./custom-foot-btn"/>
+<import src="./custom-foot-textIcon"/>
+<import src="./custom-foot-iconText"/>
+<template name="custom">
+  <view class='custom-container'>
+    <view class='custom-title' wx:if="{{item.content.title.length}}">
+      <text class='custom-title-text'>{{item.content.title}}</text>
+      <text>{{item.content.subTitle}}</text>
+      <image wx:if="{{item.content.isDiagnosis}}" class='tag-pic' src="../../assets/image/diagnosis_record.png" mode='aspectFill'></image>
+    </view>
+    <view class='custom-detail' bindtap='customClick' data-item="{{item}}" data-index="{{index}}">
+      <template is="{{item.content.template}}" data="{{...item.content}}"/>
+    </view>
+    <view class='custom-footer' wx:if="{{item.content.footText.length}}">
+      <template is="{{item.content.footTemplate}}" data="{{...item.content}}"/>
+    </view>
+  </view>
+</template>

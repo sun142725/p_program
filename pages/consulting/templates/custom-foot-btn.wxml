@@ -1,0 +1,5 @@
+<template name="btn">
+  <view class='custom-footer-container'>
+    <button class='custom-footer-btn' catchtap="{{notOperation ? '' : 'footClick'}}">{{footText}}</button>
+  </view>
+</template>

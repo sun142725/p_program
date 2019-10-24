@@ -1,0 +1,62 @@
+// *******该文件仅支持 es5语法
+
+
+/**
+ * 转换时间为 Unix时间
+ */
+function formatUnixT(time) {
+  var reg = getRegExp("-", "g");
+  return Date(Date.parse(time.replace(reg, "/"))).getTime();
+}
+/**
+ * T Array 收集每次记录的时间戳用于对比
+ * h Object 缓存每次展示的时间 避免聊天列表数据新增引起的重新计算而使之前的时间消失
+ * callback 参数time为Unix时间戳
+ */
+function cached(fn) {
+  var T = [0]
+  var h = {}
+  return (function (str) {
+    return (h[str]) ? h[str] : (rule(str, T[T.length - 1]) ? '' : ((T[T.length] = str) && (h[str] = fn(str)) && fn(str)))
+  })
+}
+/**
+ * cached的规则函数 计算两个时间戳的时间差  微信是5分钟  60*5
+ * @params {Number} time - 当前时间
+ * @params {Number} T - 比较时间
+ */
+function rule(time, T) {
+  return time - T < 300
+}
+
+/**
+ * 将时间转换为LocalTime
+ */
+function getLocalTime(nS) {
+  var reg = getRegExp(":\d{1,2}$");
+  return getDate(parseInt(nS) * 1000).toLocaleString().replace(reg, ' ');
+}
+/**
+ * 输出时间转换format函数
+ */
+var formatTime = cached(function (time){
+  return getLocalTime(time)
+})
+
+/**
+ * 时间格式化为时分秒
+ * @param { Number } time 
+ */
+function countUpData(time = 0) {
+  var hour = Math.floor(time / (60 * 60 * 1000))
+  var minute = Math.floor(time % (60 * 60 * 1000) / (60 * 1000));
+  var second = Math.floor(time % (60 * 1000) / 1000);
+  hour = hour < 10 ? '0' + hour : '' + hour,
+    minute = minute < 10 ? '0' + minute : '' + minute,
+    second = second < 10 ? '0' + second : '' + second
+  return hour + ':' + minute + ':' + second
+}
+module.exports = {
+  formatTime: formatTime,
+  msg: '234423'
+}

@@ -18,7 +18,7 @@ create(store, {
     scrollTop: 99999,
     isShowFn: true, // 底部特殊功能是否展示
     array: [],
-    showInput: false,
+    showInput: true,
     showCityPickView: false,
   },
   changeIsShowBadge(){
@@ -27,16 +27,31 @@ create(store, {
       isShowBadge: !_this.data.isShowBadge
     })
   },
+  // 点击自定义消息底部 比如按钮什么的可点击的操作
   footClick(e){
     console.log(this)
     // [e.currentTarget.dataset.state]
     console.log('eeeeeeeeeeee', e)
-    var changeItem = 'todos[' + e.currentTarget.dataset.index + '].idDelete';  
     this.setData({
-      ['messages[' + e.currentTarget.dataset.index + '].content.hasFooter']: false,
-      showCityPickView: true
+      // ['messages[' + e.currentTarget.dataset.index + '].content.hasFooter']: false,
+      // showCityPickView: true
     })
+    this.store.update()
     console.log(this.data.messages)
+  },
+  // 点击自定义消息主体
+  customClick(e){
+    console.log('eeeeeeeeeeee', e.currentTarget.dataset)
+    if (e.currentTarget.dataset.item.content.subType == 'chooseStore'){
+      // 点击选择门店
+    }
+    switch (e.currentTarget.dataset.item.content.subType){
+      case 'chooseStore': 
+            console.log('选择门店')
+            break;
+      default:
+            console.log(1)
+    }
   },
   // 换行
   lineChange(e){
@@ -52,20 +67,9 @@ create(store, {
       isShowFn: !this.data.isShowFn
     })
   },
-  openPicker(){
-    var query = wx.createSelectorQuery()
-    var pickCity = query.select('.pick-city')
-    console.log(pickCity.node())
-    pickCity.boundingClientRect(function (rect) {
-      console.log(rect)
-      let file = '#' + rect.id;
-      file.click();
-    }).exec()
-  },
   submitMsg(e){
     console.log('发送消息', this.data.message)
     this.triggleShowFn()
-    this.openPicker()
     let _this = this
     let message = wx.$apptim.createTextMessage({
       to: _this.data.groupID,
@@ -214,7 +218,9 @@ create(store, {
               '处方': '头孢丙烯分散片  x2\n头孢丙烯分散片头孢丙烯分散片  x1',
               '出院遗嘱': '病人出院后，需要注意饮食，清淡为主 不宜过量饮酒及剧烈运动，建议出院后3个月岛医院复查。'
             },
-            hasFooter: true,
+            footText: '健康档案',
+            footTemplate: 'btn',
+            notOperation: true
           },
           type: 'custom',
           id: '1',
@@ -231,7 +237,9 @@ create(store, {
             template: 'text',
             contentText: '抱歉，由于您提交的病情不对症，医生已为您退诊，请选择对症的医生重新提交。服务相关费用将会在3个工作日内返回您的付款账户',
             contentImages: [],
-            hasFooter: true,
+            footText: '健康档案',
+            footTemplate: 'iconText',
+            notOperation: false
           },
           type: 'custom',
           id: '1',
@@ -247,7 +255,9 @@ create(store, {
             template: 'textImage',
             contentText: '最好是几粒就见效的那种，因为我还有好多原型没画，一忙起来就想不起吃药。谢谢了！',
             contentImages: ['https://uat-gateway.dr-elephant.net/sysfile-oss/sysFile/downloadFile?url=https://oss-dx-uat.oss-cn-shanghai.aliyuncs.com/sysFile/UX/13698078888/20190124/2f1da089c6b5421e905a594f8fa1c637.png', 'https://uat-gateway.dr-elephant.net/sysfile-oss/sysFile/downloadFile?url=https://oss-dx-uat.oss-cn-shanghai.aliyuncs.com/sysFile/UX/13698078888/20190124/2f1da089c6b5421e905a594f8fa1c637.png', 'https://uat-gateway.dr-elephant.net/sysfile-oss/sysFile/downloadFile?url=https://oss-dx-uat.oss-cn-shanghai.aliyuncs.com/sysFile/UX/13698078888/20190124/2f1da089c6b5421e905a594f8fa1c637.png'],
-            hasFooter: false,
+            footText: '健康档案',
+            footTemplate: 'textIcon',
+            notOperation: false
           },
           type: 'system',
           id: '1',
@@ -290,7 +300,7 @@ create(store, {
             template: 'text',
             contentText: '最好是几粒就见效的那种，因为我还有好多原型没画，一忙起来就想不起吃药。谢谢了！',
             contentImages: ['https://uat-gateway.dr-elephant.net/sysfile-oss/sysFile/downloadFile?url=https://oss-dx-uat.oss-cn-shanghai.aliyuncs.com/sysFile/UX/13698078888/20190124/2f1da089c6b5421e905a594f8fa1c637.png', 'https://uat-gateway.dr-elephant.net/sysfile-oss/sysFile/downloadFile?url=https://oss-dx-uat.oss-cn-shanghai.aliyuncs.com/sysFile/UX/13698078888/20190124/2f1da089c6b5421e905a594f8fa1c637.png', 'https://uat-gateway.dr-elephant.net/sysfile-oss/sysFile/downloadFile?url=https://oss-dx-uat.oss-cn-shanghai.aliyuncs.com/sysFile/UX/13698078888/20190124/2f1da089c6b5421e905a594f8fa1c637.png'],
-            hasFooter: false,
+            footText: '',
           },
           id: "GROUP10000000-11-75000159-1",
           isSend: true,

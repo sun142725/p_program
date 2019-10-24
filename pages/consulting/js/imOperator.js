@@ -3,6 +3,7 @@ import TIM from '../../../utils/tim-wx.js'
 import store from '../../../store.js'
 
 const imOperator = {
+  initListener: initListener,
   reset: function (){
     Object.assign(store.data, {
       currentUserProfile: {},
@@ -101,7 +102,7 @@ const imOperator = {
     var obj = {}
     obj.content = message.type == TIM.TYPES.MSG_TEXT ? message.payload.text : message.type == TIM.TYPES.MSG_CUSTOM ? JSON.parse(message.payload.description) : ''
     obj.type = message.type == TIM.TYPES.MSG_TEXT ? 'text' : message.type == TIM.TYPES.MSG_CUSTOM ? message.payload.data : ''
-    obj.id = message.ID
+    obj.id = message.type == TIM.TYPES.MSG_TEXT ? message.ID : JSON.parse(message.payload.extension).id
     obj.isSend = message.from == '15100000001'
     obj.time = message.time
     console.log(obj)
@@ -118,10 +119,10 @@ function initListener(){
   console.log('getCurrentPages', getCurrentPages())
   wx.$apptim.on(TIM.EVENT.SDK_READY, onReadyStateUpdate, this)
   wx.$apptim.on(TIM.EVENT.SDK_NOT_READY, onReadyStateUpdate, this)
-
   wx.$apptim.on(TIM.EVENT.KICKED_OUT, event => {
     store.data.isLogin = false
-    reset()
+    store.update()
+    imOperator.reset()
     wx.showToast({
       title: '你已被踢下线',
       icon: 'none',
@@ -156,9 +157,11 @@ function initListener(){
           return
         }
         let list = []
+        console.log('onMessageReceived', event)
         event.data.forEach(item => {
           if (item.conversationID === id) {
-            state.messages = [...state.messages, filterMessage(item)]
+            imOperator.addMessage(item)
+            // state.messages = [...state.messages, filterMessage(item)]
           } else {
             // 未读计数 +1
           }
@@ -167,7 +170,10 @@ function initListener(){
     })
   })
   wx.$apptim.on(TIM.EVENT.CONVERSATION_LIST_UPDATED, event => {
-    store.data.conversationList = event.data
+    console.log('CONVERSATION_LIST_UPDATED', event.data)
+    store.data.conversationList = []
+    store.data.conversationList.push(...event.data)
+    store.update()
   })
   wx.$apptim.on(TIM.EVENT.GROUP_LIST_UPDATED, event => {
     // store.commit('updateGroupList', event.data)
@@ -184,6 +190,7 @@ function onReadyStateUpdate({ name }) {
   console.log('onReadyStateUpdate', name)
   const isSDKReady = (name === TIM.EVENT.SDK_READY)
   store.data.isSDKReady = isSDKReady
+  store.update()
 }
 
 // initListener()
