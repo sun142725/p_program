@@ -7,7 +7,8 @@ Page({
    */
   data: {
     userInfo: {},
-    hasUserInfo: false
+    hasUserInfo: false,
+    isShowConfirm: false
   },
 
   /**
@@ -38,6 +39,9 @@ Page({
         console.log(res.telNumber)
       }
     })
+  },
+  addVisitNum(){
+    this.setData({ isShowConfirm: true})
   },
 
   /**

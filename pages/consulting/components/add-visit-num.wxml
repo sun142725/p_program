@@ -1,0 +1,21 @@
+<!--pages/consulting/components/add-visit-num.wxml-->
+<block>
+      <view class="toast-box {{isShowConfirm ? 'show' : ''}}" catch:tap="cancel">
+        <view class='showToast' catch:tap="catchBubbling">
+            <view class='toast-title'>
+                <text>增加回复</text>
+                <image src="{{staticSourceServer}}/image/icon_close.png" catch:tap="cancel"></image>
+            </view>
+            <view class='toast-main'>
+                <view class='toast-input'>
+                    <input value="{{visitNum}}" type='number' placeholder='请输入您要增加的回复条数' bindinput='setValue'></input>
+                </view>
+            </view>
+            <view class='toast-button'>
+                <view class='button2'>
+                    <button catchtap='confirmAcceptance'>确定</button>
+                </view>
+            </view>
+        </view>
+    </view>
+  </block>
