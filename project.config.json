@@ -47,6 +47,10 @@
 			"currentL": -1,
 			"list": []
 		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
 		"miniprogram": {
 			"current": 1,
 			"list": [
@@ -61,6 +65,13 @@
 					"id": -1,
 					"name": "聊天室",
 					"pathName": "pages/consulting/chat",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "上传图片",
+					"pathName": "pages/tool/image-to-text/image-to-text",
 					"scene": null
 				}
 			]

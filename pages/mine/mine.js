@@ -43,6 +43,11 @@ Page({
   addVisitNum(){
     this.setData({ isShowConfirm: true})
   },
+  goToImageToText(){
+    wx.navigateTo({
+      url: '/pages/tool/image-to-text/image-to-text',
+    })
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

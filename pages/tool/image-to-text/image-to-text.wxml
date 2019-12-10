@@ -1,0 +1,6 @@
+<!--pages/tool/image-to-text/image-to-text.wxml-->
+<text>pages/tool/image-to-text/image-to-text.wxml</text>
+
+<button><text bindtap="chooseImage">上传图片</text></button>
+<view><text>{{words}}</text></view>
+<button bindtap="setClipboardData">复制</button>

@@ -11,6 +11,7 @@
   
   <text bindtap="choseAdress">选择收货地址</text>
   <text bindtap="addVisitNum">添加回复条数</text>
+  <text bindtap="goToImageToText">图片转文字</text>
   <input placeholder="输入点什么"></input>
   <input placeholder="输入点什么"></input>
   <input placeholder="输入点什么"></input>

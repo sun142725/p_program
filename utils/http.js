@@ -15,15 +15,8 @@ function requestApi(method, url, data, noAuth, header, showLoadBooler) {  //统�
         data: data,
         header: mergeHeader(noAuth, header),
         success: res=>{
-          if(res.code == 0){
-            resolve(res);
-          } else {
-            wx.showToast({
-              title: res.message || '服务器异常',
-              icon: 'none',
-              duration: 2000
-            })
-          }
+          resolve(res);
+          
         },
         fail: err=>{
           wx.showToast({
@@ -43,7 +36,7 @@ function requestApi(method, url, data, noAuth, header, showLoadBooler) {  //统�
 
 function mergeHeader(noAuth, header) {
   let h = {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/x-www-form-urlencoded'
   };
   if (!noAuth) {
     h.Authorization = wx.getStorageSync('token')
