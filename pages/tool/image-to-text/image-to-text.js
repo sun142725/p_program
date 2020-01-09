@@ -12,14 +12,15 @@ Page({
       accurate_basic: '高精度',
       accurate: '高精度含位置',
     },
-    words: ''
+    words: '',
+    access_token: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getToken()
   },
 
   /**
@@ -27,6 +28,16 @@ Page({
    */
   onReady: function () {
 
+  },
+  getToken(){
+    
+    request.Get('https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=4G8D5tqHYA71CN5WaQCtPXxw&client_secret=9iK6E1rlxYvk1Xlepew9RhTqLhFinrQ4')
+    .then(res => res.data)
+    .then(res => {
+      this.setData({
+        access_token: res.access_token
+      })
+    })
   },
   chooseImage(e) {
     let _this = this
@@ -55,10 +66,10 @@ Page({
   /**
    * @param {Base64} image
    * @param {Type} type 
-   * https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=4G8D5tqHYA71CN5WaQCtPXxw&client_secret=9iK6E1rlxYvk1Xlepew9RhTqLhFinrQ4
+   * 
    */
   accurate(image, type = 'accurate_basic'){
-    request.Post('https://aip.baidubce.com/rest/2.0/ocr/v1/' + type + '?access_token=24.00d726c07db87b6fef1f8d3dfcaf7d62.2592000.1581144571.282335-17983471',{
+    request.Post('https://aip.baidubce.com/rest/2.0/ocr/v1/' + type + '?access_token=' + this.data.access_token,{
       image: image
     })
     .then(res => res.data)
@@ -74,6 +85,7 @@ Page({
     })
   },
   setClipboardData(){
+    if(this.data.words.length <= 0) return;
     wx.setClipboardData({
       data: this.data.words
     })

@@ -1,8 +1,18 @@
 <!--pages/tool/image-to-text/image-to-text.wxml-->
-<button bindtap="chooseImage"><text bindtap="chooseImage">上传图片</text></button>
-<view>
-  <textarea>
-    213342324
-  </textarea>
+
+<view class="image-to-text">
+  
+  <view class="words-view">
+    <textarea
+        value="{{words}}"
+        placeholder="解析文字..."
+    >
+    </textarea>
+  </view>
+  <view class="control-view">
+    <button bindtap="setClipboardData">复制</button>
+  </view>
+  <view class="update-view">
+    <button bindtap="chooseImage">上传图片</button>
+  </view>
 </view>
-<button bindtap="setClipboardData">复制</button>

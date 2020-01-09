@@ -3,21 +3,6 @@ const tim = TIM.create({
   SDKAppID: 1400164159
 })
 wx.$apptim = tim
-import store from './store.js'
-import imOperator from './pages/consulting/js/imOperator.js'
-import { getLoginInfo2 } from './pages/consulting/js/api.js'
-imOperator.initListener()
-getLoginInfo2({})
-  .then(res=>{
-    // console.log(res)
-    let promise = tim.login({
-      userID: res.data.userID, userSig: res.data.userSig})
-    promise.then(function (imResponse) {
-      console.log('imResponse.data', imResponse.data) // 登录成功
-    }).catch(function (imError) {
-      console.warn('login error:', imError) // 登录失败的相关信息
-    })
-  })
 console.log('app.js')
 const app = getApp();
 //app.js
