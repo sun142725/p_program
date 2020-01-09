@@ -55,9 +55,10 @@ Page({
   /**
    * @param {Base64} image
    * @param {Type} type 
+   * https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=4G8D5tqHYA71CN5WaQCtPXxw&client_secret=9iK6E1rlxYvk1Xlepew9RhTqLhFinrQ4
    */
-  accurate(image, type = 'general_basic'){
-    request.Post('https://aip.baidubce.com/rest/2.0/ocr/v1/' + type + '?access_token=24.12c8e8dea8ed054ad578999bda48675d.2592000.1578536508.282335-17983471',{
+  accurate(image, type = 'accurate_basic'){
+    request.Post('https://aip.baidubce.com/rest/2.0/ocr/v1/' + type + '?access_token=24.00d726c07db87b6fef1f8d3dfcaf7d62.2592000.1581144571.282335-17983471',{
       image: image
     })
     .then(res => res.data)
