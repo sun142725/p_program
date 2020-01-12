@@ -1,5 +1,6 @@
 // pages/tool/image-to-text/image-to-text.js
 import request from '../../../utils/http.js'
+import { getTororoList } from '../../../utils/cloud/tororo.js'
 Page({
 
   /**
@@ -21,6 +22,10 @@ Page({
    */
   onLoad: function (options) {
     this.getToken()
+    getTororoList()
+    .then(res => {
+      console.log('result调用', res)
+    })
   },
 
   /**
