@@ -1,6 +1,0 @@
-<template name="iconText">
-  <view class='custom-footer-container' catchtap="{{notOperation ? '' : 'footClick'}}">
-    <image class='custom-footer-icon' style='margin-right: 10rpx;' src="../../assets/image/icon_done.png"  mode='aspectFill'></image>
-    <text class='custom-footer-text' data-item="{{item}}" data-index="{{index}}">{{footText}}</text>
-  </view>
-</template>

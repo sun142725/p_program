@@ -1,5 +1,0 @@
-<template name="text">
-  <view>
-    <text>{{contentText}}</text>
-  </view>
-</template>

@@ -1,6 +1,7 @@
 // pages/tool/image-to-text/image-to-text.js
 import request from '../../../utils/http.js'
 import { getTororoList } from '../../../utils/cloud/tororo.js'
+import { insert } from '../../../utils/cloud/imageToWordRecord.js'
 Page({
 
   /**
@@ -14,7 +15,8 @@ Page({
       accurate: '高精度含位置',
     },
     words: '',
-    access_token: ''
+    access_token: '',
+    fileID: ''
   },
 
   /**
@@ -53,6 +55,7 @@ Page({
       success: function (res) {
         console.log(res)
         var tempFilePaths = res.tempFilePaths[0];
+        _this.uploadFile(tempFilePaths)
         wx.getFileSystemManager().readFile({
           filePath: tempFilePaths, //选择图片返回的相对路径
           encoding: "base64",//这个是很重要的
@@ -79,6 +82,9 @@ Page({
     })
     .then(res => res.data)
     .then(res => {
+      this.insert({
+        words:JSON.stringify(res)
+      }) 
       var str = ''
       res.words_result.forEach(val=>{
         str += val.words + '\n'
@@ -93,6 +99,30 @@ Page({
     if(this.data.words.length <= 0) return;
     wx.setClipboardData({
       data: this.data.words
+    })
+  },
+  uploadFile(filePath){
+    console.log('上传文件')
+    let _this = this
+    let str = Math.floor(Math.random() * 100000000)
+    wx.cloud.uploadFile({
+      cloudPath: 'image-to-word/' + str + '.png',
+      filePath: filePath,
+      success: res =>{
+        console.log('上传结果', res.fileID)
+        _this.data.fileID = res.fileID
+      },
+      fail:err=>{
+        console.log('上传失败：', err)
+      }
+    })
+  },
+  insert(data){
+    insert({
+      fileID: this.data.fileID,
+      words: data.words
+    }).then(res => {
+      console.log('插入记录', res)
     })
   },
 

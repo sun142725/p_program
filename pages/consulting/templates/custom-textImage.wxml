@@ -1,7 +1,0 @@
-<import src="./custom-text.wxml"/>
-<template name="textImage">
-  <template is="text" data="{{contentText}}"/>
-  <view class='custom-detail-pic'>
-    <image wx:for="{{contentImages}}" wx:for-item="imageSrc"  wx:for-index="i" wx:key="i"  src="{{imageSrc}}" mode='aspectFill'></image>
-  </view>
-</template>
