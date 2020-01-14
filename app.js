@@ -1,10 +1,4 @@
-import * as TIM from './utils/tim-wx.js'
-const tim = TIM.create({
-  SDKAppID: 1400164159
-})
-wx.$apptim = tim
-console.log('app.js')
-const app = getApp();
+
 //app.js
 App({
   onLaunch: function () {

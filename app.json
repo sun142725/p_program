@@ -4,9 +4,7 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/testIM/chat",
-    "pages/consulting/triage",
     "components/modal/modal",
-    "pages/consulting/chat",
     "pages/tool/image-to-text/image-to-text"
   ],
   "window": {
