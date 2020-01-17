@@ -1,11 +1,12 @@
 {
   "pages": [
-    "pages/mine/mine",
     "pages/index/index",
+    "pages/mine/mine",
     "pages/logs/logs",
-    "pages/testIM/chat",
     "components/modal/modal",
-    "pages/tool/image-to-text/image-to-text"
+    "pages/tool/image-to-text/image-to-text",
+    "pages/tool/bank-to-text/bank-to-text",
+    "pages/tool/idcard-to-text/idcard-to-text"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,4 +1,4 @@
-// pages/tool/image-to-text/image-to-text.js
+// pages/tool/idcard-to-text/idcard-to-text.js
 import request from '../../../utils/http.js'
 import { getTororoList } from '../../../utils/cloud/tororo.js'
 // import { insert } from '../../../utils/cloud/imageToWordRecord.js'
@@ -8,13 +8,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    imageToTextType: {
-      general_basic: '通用',
-      general: '通用含位置',
-      accurate_basic: '高精度',
-      accurate: '高精度含位置',
+    backCard: {
+      bank_card_number: '',
+      valid_date: '',
+      bank_card_type: '',
+      bank_name: ''
     },
-    words: '',
     access_token: '',
     fileID: ''
   },
@@ -25,9 +24,9 @@ Page({
   onLoad: function (options) {
     this.getToken()
     getTororoList()
-    .then(res => {
-      console.log('result调用', res)
-    })
+      .then(res => {
+        console.log('result调用', res)
+      })
   },
 
   /**
@@ -36,15 +35,14 @@ Page({
   onReady: function () {
 
   },
-  getToken(){
-    
+  getToken() {
     request.Get('https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=4G8D5tqHYA71CN5WaQCtPXxw&client_secret=9iK6E1rlxYvk1Xlepew9RhTqLhFinrQ4')
-    .then(res => res.data)
-    .then(res => {
-      this.setData({
-        access_token: res.access_token
+      .then(res => res.data)
+      .then(res => {
+        this.setData({
+          access_token: res.access_token
+        })
       })
-    })
   },
   chooseImage(e) {
     let _this = this
@@ -76,48 +74,49 @@ Page({
    * @param {Type} type 
    * 
    */
-  accurate(image, type = 'accurate_basic'){
-    request.Post('https://aip.baidubce.com/rest/2.0/ocr/v1/' + type + '?access_token=' + this.data.access_token,{
+  accurate(image, type = 'accurate_basic') {
+    request.Post('https://aip.baidubce.com/rest/2.0/ocr/v1/bankcard?access_token=' + this.data.access_token, {
       image: image
     })
-    .then(res => res.data)
-    .then(res => {
-      this.insert({
-        words:JSON.stringify(res)
-      }) 
-      var str = ''
-      res.words_result.forEach(val=>{
-        str += val.words + '\n'
+      .then(res => res.data)
+      .then(res => {
+        this.insert({
+          words: JSON.stringify(res)
+        })
+        console.log(res)
+        this.setData({
+          backCard: {
+            bank_card_number: res.result.bank_card_number,
+            valid_date: res.result.valid_date,
+            bank_card_type: res.result.bank_card_type,
+            bank_name: res.result.bank_name
+          }
+        })
       })
-      console.log()
-      this.setData({
-        words: str
-      })
-    })
   },
-  setClipboardData(){
-    if(this.data.words.length <= 0) return;
+  setClipboardData() {
+    if (this.data.words.length <= 0) return;
     wx.setClipboardData({
       data: this.data.words
     })
   },
-  uploadFile(filePath){
+  uploadFile(filePath) {
     console.log('上传文件')
     let _this = this
     let str = Math.floor(Math.random() * 100000000)
     wx.cloud.uploadFile({
       cloudPath: 'image-to-word/' + str + '.png',
       filePath: filePath,
-      success: res =>{
+      success: res => {
         console.log('上传结果', res.fileID)
         _this.data.fileID = res.fileID
       },
-      fail:err=>{
+      fail: err => {
         console.log('上传失败：', err)
       }
     })
   },
-  insert(data){
+  insert(data) {
     // insert({
     //   fileID: this.data.fileID,
     //   words: data.words

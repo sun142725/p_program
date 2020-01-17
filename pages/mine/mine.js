@@ -8,7 +8,6 @@ Page({
   data: {
     userInfo: {},
     hasUserInfo: false,
-    isShowConfirm: false
   },
 
   /**
@@ -25,23 +24,10 @@ Page({
       }
     })
   },
-  choseAdress: function () {
-    wx.chooseAddress({
-      success(res) {
-        console.log('adreess', res)
-        console.log(res.userName)
-        console.log(res.postalCode)
-        console.log(res.provinceName)
-        console.log(res.cityName)
-        console.log(res.countyName)
-        console.log(res.detailInfo)
-        console.log(res.nationalCode)
-        console.log(res.telNumber)
-      }
-    })
-  },
-  addVisitNum(){
-    this.setData({ isShowConfirm: true})
+  handleContact(e){
+    console.log('>>>>>>>>>>>>客服',e.detail)
+    console.log(e.detail.path)
+    console.log(e.detail.query)
   },
   goToImageToText(){
     wx.navigateTo({

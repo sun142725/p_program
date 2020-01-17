@@ -1,0 +1,18 @@
+<!--pages/tool/idcard-to-text/idcard-to-text.wxml-->
+<view class="image-to-text">
+  
+  <view class="words-view">
+    <textarea
+        value="{{words}}"
+        placeholder="解析文字..."
+    >
+    </textarea>
+    <view><text>银行卡号： {{}}</text></view>
+  </view>
+  <view class="control-view">
+    <button bindtap="setClipboardData">复制</button>
+  </view>
+  <view class="update-view">
+    <button bindtap="chooseImage">上传图片</button>
+  </view>
+</view>

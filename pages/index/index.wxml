@@ -1,18 +1,16 @@
 <!--index.wxml-->
 <view class="container">
   <swiper autoplay="true" circular="true">
-    <swiper-item wx:for="{{swipeArr}}" wx:key="{{index}}">
+    <swiper-item wx:for="{{swipeArr}}" wx:key="index">
       <image class='swipe-image' src='{{item.src}}'></image>
     </swiper-item>
   </swiper>
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto" bindtap='vibrate'>{{motto}}</text>
-  </view>
+  <scroll-view scroll-x>
+    <view class="tool">
+      <view wx:for="{{toolArr}}" wx:key="index" bindtap="clickTool" data-index="{{index}}">
+        <image src="{{item.image}}"></image>
+        <text>{{item.text}}</text>
+      </view>
+    </view>
+  </scroll-view>
 </view>
