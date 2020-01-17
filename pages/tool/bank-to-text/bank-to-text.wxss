@@ -1,1 +1,5 @@
 /* pages/tool/bank-to-text/bank-to-text.wxss */
+.preview{
+  width: 100%;
+  height: 300rpx;
+}

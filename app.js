@@ -49,6 +49,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    isIpx: false
+    isIpx: false,
+    appVesion: 'V1.0.2'
   }
 })

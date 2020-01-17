@@ -2,18 +2,16 @@
 <view class="image-to-text">
   
   <view class="words-view">
-    <textarea
-        value="{{words}}"
-        placeholder="解析文字..."
-    >
-    </textarea>
+    <view class="preview">
+      <image src="{{tempFilePath}}"></image>
+    </view>
     <view><text>银行卡号： {{backCard.bank_card_number}}</text></view>
     <view><text>有效期 {{backCard.valid_date}}</text></view>
     <view><text>银行卡类型： {{backCard.bank_card_type == 1 ? '借记卡' : backCard.bank_card_type == 2? '信用卡' : '未识别'}}</text></view>
     <view><text>银行名： {{backCard.bank_name}}</text></view>
   </view>
   <view class="control-view">
-    <button bindtap="setClipboardData">复制</button>
+    <button bindtap="setClipboardData">复制卡号</button>
   </view>
   <view class="update-view">
     <button bindtap="chooseImage">上传银行卡正面</button>

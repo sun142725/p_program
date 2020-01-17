@@ -5,6 +5,10 @@
       <image class='swipe-image' src='{{item.src}}'></image>
     </swiper-item>
   </swiper>
+  <view class="tool-title">
+    <view></view>
+    <text>常用工具</text>
+  </view>
   <scroll-view scroll-x>
     <view class="tool">
       <view wx:for="{{toolArr}}" wx:key="index" bindtap="clickTool" data-index="{{index}}">

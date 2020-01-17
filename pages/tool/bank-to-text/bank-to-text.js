@@ -15,6 +15,7 @@ Page({
       bank_name: ''
     },
     access_token: '',
+    tempFilePath: '',
     fileID: ''
   },
 
@@ -53,7 +54,10 @@ Page({
       success: function (res) {
         console.log(res)
         var tempFilePaths = res.tempFilePaths[0];
-        _this.uploadFile(tempFilePaths)
+        _this.setData({
+          tempFilePath : res.tempFilePaths[0] 
+        })
+        // _this.uploadFile(tempFilePaths)
         wx.getFileSystemManager().readFile({
           filePath: tempFilePaths, //选择图片返回的相对路径
           encoding: "base64",//这个是很重要的
@@ -69,6 +73,7 @@ Page({
       complete: function (res) { },
     })
   },
+
   /**
    * @param {Base64} image
    * @param {Type} type 
@@ -97,7 +102,7 @@ Page({
   setClipboardData() {
     if (this.data.words.length <= 0) return;
     wx.setClipboardData({
-      data: this.data.words
+      data: this.data.backCard.bank_card_number
     })
   },
   uploadFile(filePath) {
