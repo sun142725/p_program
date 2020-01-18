@@ -1,4 +1,21 @@
-
+// {
+      //   "pagePath": "pages/index/index",
+      //   "iconPath": "assets/image/icon_home.png",
+      //   "selectedIconPath": "assets/image/icon_home_active.png",
+      //   "text": "首页"
+      // },
+      // {
+      //   "pagePath": "pages/logs/logs",
+      //   "iconPath": "assets/image/icon_colution.png",
+      //   "selectedIconPath": "assets/image/icon_clution_active.png",
+      //   "text": "启动日志"
+      // },
+      // {
+      //   "pagePath": "pages/mine/mine",
+      //   "iconPath": "assets/image/icon_mine.png",
+      //   "selectedIconPath": "assets/image/icon_mine_active.png",
+      //   "text": "个人中心"
+      // }
 //app.js
 App({
   onLaunch: function () {

@@ -1,20 +1,22 @@
 <!--pages/tool/bank-to-text/bank-to-text.wxml-->
 <view class="image-to-text">
-  
+  <text>注意：请上传银行卡正面</text>
   <view class="words-view">
-    <view class="preview">
-      <image src="{{tempFilePath}}"></image>
+    <view class="preview" bindtap="chooseImage">
+      <image class="tempFilePath" wx:if="{{tempFilePath}}" src="{{tempFilePath}}"></image>
+      <view class="camera" wx:else>
+        <image src="../../../assets/image/camera.png"></image>
+      </view>
     </view>
-    <view><text>银行卡号： {{backCard.bank_card_number}}</text></view>
-    <view><text>有效期 {{backCard.valid_date}}</text></view>
-    <view><text>银行卡类型： {{backCard.bank_card_type == 1 ? '借记卡' : backCard.bank_card_type == 2? '信用卡' : '未识别'}}</text></view>
-    <view><text>银行名： {{backCard.bank_name}}</text></view>
+    <mp-cells ext-class="my-cells" title="识别结果">
+      <mp-cell bindtap="setClipboardData" value="银行卡号：" footer="{{backCard.bank_card_number}}"></mp-cell>
+      <mp-cell value="有效期: " footer="{{backCard.valid_date}}"></mp-cell>
+      <mp-cell value="银行卡类型：" footer="{{backCard.bank_card_type == 1 ? '借记卡' : backCard.bank_card_type == 2? '信用卡' : '未识别'}}"></mp-cell>
+      <mp-cell value="银行名：" footer="{{backCard.bank_name}}"></mp-cell>
+    </mp-cells>
   </view>
   <view class="control-view">
     <button bindtap="setClipboardData">复制卡号</button>
-  </view>
-  <view class="update-view">
-    <button bindtap="chooseImage">上传银行卡正面</button>
   </view>
 </view>
 

@@ -11,15 +11,19 @@ Page({
     swipeArr: [
       {
         id: 0,
-        src: 'https://cdn.dr-elephant.net/drelephantweb/image/uindex-2.jpg'
+        src: '../../assets/image/banner1.jpg'
       },
       {
         id: 1,
-        src: 'https://cdn.dr-elephant.net/drelephantweb/image/uindex-2.jpg'
+        src: '../../assets/image/banner2.jpg'
       },
       {
         id: 2,
-        src: 'https://cdn.dr-elephant.net/drelephantweb/image/uindex-2.jpg'
+        src: '../../assets/image/banner3.jpg'
+      },
+      {
+        id: 3,
+        src: '../../assets/image/banner4.jpg'
       },
     ],
     toolArr: [

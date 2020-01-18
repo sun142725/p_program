@@ -100,7 +100,7 @@ Page({
       })
   },
   setClipboardData() {
-    if (this.data.words.length <= 0) return;
+    if (this.data.backCard.bank_card_number.length <= 0) return;
     wx.setClipboardData({
       data: this.data.backCard.bank_card_number
     })
