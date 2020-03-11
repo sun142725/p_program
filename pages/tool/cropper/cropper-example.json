@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "cropper": "/pages/tool/cropper/cropper"
+  },
+  "disableScroll": true
+}

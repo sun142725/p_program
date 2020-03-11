@@ -41,6 +41,11 @@ Page({
         image: 'https://gss0.bdstatic.com/70cFfyinKgQIm2_p8IuM_a/daf/pic/item/29381f30e924b899dddbd6ec60061d950b7bf67b.jpg',
         text: '身份证识别',
         url: '/pages/tool/idcard-to-text/idcard-to-text'
+      },
+      {
+        image: 'https://gss0.bdstatic.com/70cFfyinKgQIm2_p8IuM_a/daf/pic/item/29381f30e924b899dddbd6ec60061d950b7bf67b.jpg',
+        text: '图片切片',
+        url: '/pages/tool/cropper/cropper-example'
       }
     ]
   },
