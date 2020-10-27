@@ -1,61 +1,23 @@
-// pages/mine/mine.js
-const app = getApp()
+// pages/good_doctor_h5/good_doctor_h5.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    loading: false,
-    color: '#000',
-    background: '#f8f8f8',
-    show: true,
-    animated: false,
-    link: 'http://192.168.1.164:8081/#/product'
+    link: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
-    // this.setData({
-    //   link: 'http://192.168.1.164:8081/#/product'
-    // })
-  },
-  getUrl: function(e){
-    console.log('esuccess', e)
-  },
-  getError: function(e){
-    console.log('error', e)
-  },
-  toggleLoading() {
+    console.log(options)
+    console.log(decodeURIComponent(options.weburl))
     this.setData({
-      loading: !this.data.loading
+      link: decodeURIComponent(options.weburl)
     })
   },
-  changeColor() {
-    this.setData({
-      color: '#07C160'
-    })
-  },
-  changeBgColor() {
-    this.setData({
-      background: '#ededed'
-    })
-  },
-  toggleShow() {
-    this.setData({
-      show: !this.data.show
-    })
-  },
-  toggleAnimated() {
-    this.setData({
-      animated: !this.data.animated,
-      show: !this.data.show
-    })
-  },
-
 
   /**
    * 生命周期函数--监听页面初次渲染完成

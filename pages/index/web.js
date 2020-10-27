@@ -1,5 +1,4 @@
-// pages/mine/mine.js
-const app = getApp()
+// pages/index/web.js
 Page({
 
   /**
@@ -11,23 +10,17 @@ Page({
     background: '#f8f8f8',
     show: true,
     animated: false,
-    link: 'http://192.168.1.164:8081/#/product'
+    link: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log('options', options)
     // this.setData({
-    //   link: 'http://192.168.1.164:8081/#/product'
+    //   link: "http://app-test2.h5.ihaozhuo.com/mhk/index.html#/product?channelCode=MN"
     // })
-  },
-  getUrl: function(e){
-    console.log('esuccess', e)
-  },
-  getError: function(e){
-    console.log('error', e)
   },
   toggleLoading() {
     this.setData({
@@ -55,7 +48,6 @@ Page({
       show: !this.data.show
     })
   },
-
 
   /**
    * 生命周期函数--监听页面初次渲染完成

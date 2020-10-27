@@ -49,6 +49,27 @@ Page({
       }
     ]
   },
+  // 小程序跳转
+  toElephant: function(){
+    wx.navigateToMiniProgram({
+      appId: 'wx0def0337fd436dbd',
+      path: 'pages/index/home?sessionToken=2f68f675c6664ddb95bbb03affcf9e78&unionType=13&channelCode=10002',
+      extraData: {
+        accessMode: 'MN',
+        firstImMsg: JSON.stringify({
+          'contentText':'点击查看【用户体检报告】>>',
+          'template':'textLink',
+          'contentUrl': 'https://www.baidu.com'
+        })
+      },
+      envVersion: 'trial'
+    })
+  },
+  toWebview: function(){
+    wx.navigateTo({
+      url: '/pages/mine/mine'
+    })
+  },
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({

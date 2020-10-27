@@ -9,12 +9,14 @@
     <view></view>
     <text>常用工具</text>
   </view>
-  <scroll-view scroll-x>
+  <!-- <scroll-view scroll-x>
     <view class="tool">
       <view wx:for="{{toolArr}}" wx:key="index" bindtap="clickTool" data-index="{{index}}">
         <image src="{{item.image}}"></image>
         <text>{{item.text}}</text>
       </view>
     </view>
-  </scroll-view>
+  </scroll-view> -->
+  <button bindtap="toElephant">跳转至大象医生小程序</button>
+  <button bindtap="toWebview">跳转至webview</button>
 </view>

@@ -1,17 +1,4 @@
 <!--pages/mine/mine.wxml-->
-<view class="container">
-  <view class='mine-head-bg'>
-    <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-    <text>{{userInfo.nickName}}</text>
-  </view>
-  <view>
-    <text>性别: </text>
-    <text>{{userInfo.gender == 1 ? '男' : '女'}}</text>
-  </view>
-  
-  <text bindtap="choseAdress">选择收货地址</text>
-  <text bindtap="goToImageToText">图片转文字</text>
-
-  <button open-type="contact" bindcontact="handleContact">进入客服会话</button>
-</view>
+<mp-navigation-bar loading="{{loading}}" show="{{show}}" animated="{{animated}}" color="{{color}}" background="{{background}}" title="UI组件库" back="{{true}}"></mp-navigation-bar>
+<web-view src="{{link}}" bindload="getUrl" binderror="getError"></web-view>
 

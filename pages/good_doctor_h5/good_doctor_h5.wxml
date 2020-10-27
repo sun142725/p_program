@@ -1,0 +1,2 @@
+<!--pages/good_doctor_h5/good_doctor_h5.wxml-->
+<web-view src="{{link}}" ></web-view>
