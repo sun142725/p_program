@@ -1,5 +1,5 @@
 <!--pages/index/web.wxml-->
 <mp-navigation-bar loading="{{loading}}" show="{{show}}" animated="{{animated}}" color="{{color}}" background="{{background}}" title="UI组件库" back="{{true}}">
-  <web-view src="https://app.h5.ihaozhuo.com/mhk/index.html#/product/jian?channelCode=MNHYS&channelCode=MNHYS&time=1600917265787" ></web-view>
+  <web-view src="http://192.168.1.164:8080/#/Homepage?t=18334617263&channelCode=MN" ></web-view>
 </mp-navigation-bar>
 
