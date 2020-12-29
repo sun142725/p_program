@@ -28,7 +28,9 @@ Page({
       ],
     },
     size: 640,
-    second: 0
+    second: 0,
+    circleNum: 0,
+    loading: false
   },
   /**
    * 生命周期函数--监听页面加载
@@ -106,6 +108,14 @@ Page({
   */
   getLottery: function () {
     let that = this;
+    if(this.data.loading) {
+      wx.showToast({
+        title: '稍等一下',
+      })
+      return
+    }
+    this.data.loading = true
+    var n = this.data.circleNum
     // 获取奖品配置
     let awardsConfig = that.data.awardsConfig,
       runNum = 12,
@@ -127,11 +137,11 @@ Page({
       timingFunction: 'ease-out'
     })
     
-    animationRunEasyIn.rotate(360).step()
+    animationRunEasyIn.rotate(n*360+360).step()
     that.setData({
       animationData: animationRunEasyIn.export()
     })
-    var n = 2
+     n = n+2
     var t = setInterval(function () {
       // animation.translateY(-60).step()
       animationRunLinear.rotate(360*n+1).step()
@@ -148,6 +158,8 @@ Page({
       animationRunEasyOut.rotate(360*n + 360 - awardIndex * (360 / len)).step()
       n++;
       console.log(n);
+      this.data.circleNum = n
+      this.data.loading = false
       this.setData({
         animationData: animationRunEasyOut.export()
       })
