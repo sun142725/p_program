@@ -8,9 +8,7 @@
     "pages/tool/bank-to-text/bank-to-text",
     "pages/tool/idcard-to-text/idcard-to-text",
     "pages/tool/cropper/cropper",
-    "pages/tool/cropper/cropper-example",
-    "pages/index/web",
-    "pages/good_doctor_h5/good_doctor_h5"
+    "pages/tool/cropper/cropper-example"
   ],
   "window": {
     "backgroundTextStyle": "light",

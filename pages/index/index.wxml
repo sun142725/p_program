@@ -1,22 +1,37 @@
-<!--index.wxml-->
-<view class="container">
-  <swiper autoplay="true" circular="true">
-    <swiper-item wx:for="{{swipeArr}}" wx:key="index">
-      <image class='swipe-image' src='{{item.src}}'></image>
-    </swiper-item>
-  </swiper>
-  <view class="tool-title">
-    <view></view>
-    <text>常用工具</text>
-  </view>
-  <!-- <scroll-view scroll-x>
-    <view class="tool">
-      <view wx:for="{{toolArr}}" wx:key="index" bindtap="clickTool" data-index="{{index}}">
-        <image src="{{item.image}}"></image>
-        <text>{{item.text}}</text>
+<view class="wrapper-content" style='margin:0 auto;'>
+  <view class="canvas-container-quiu" wx:for="{{list}}" style="-webkit-transform: rotate({{index * (360/list.length)}}deg);transform: rotate({{index * (360/list.length)}}deg);{{index%2==0?'background:#F2E86D':'background:#ffffff'}}"></view>
+  <view class="canvas-container">
+    <view animation="{{animationData}}" class="canvas-content" style='margin:0 auto;'>
+      <canvas class="canvas-line" disable-scroll="true" bindtouchstart="canvasTouchStart" bindtouchmove="touchMove" bindtouchend="canvasTouchEnd" canvas-id="canvas"></canvas>
+      <!-- 扇形 -->
+      <view class="canvas-list">
+                <view class="canvas-item2" wx:for="{{awardsConfig.slicePrizes}}" wx:key="key" style="transform: rotate({{item.item2Deg}});background-color:{{awardsConfig.slicePrizes.length==2?(index%2==0?'#faf5e7':'#f3e2c6'):''}};opacity:{{  awardsConfig.slicePrizes.length==2?item.opacity:  awardsConfig.slicePrizes.length==3?item.opacity:''}};width:{{size}}rpx;height:{{size/2-2}}rpx;transform-origin:{{size/2}}rpx {{size/2}}rpx">
+                  <view class="canvas-item2-after" style="transform: rotate({{item.afterDeg}});background-color:{{index%2==0?'#faf5e7':'#f3e2c6'}};opacity:{{  awardsConfig.slicePrizes.length==3?'':item.opacity}};width:{{size/2}}rpx;height:{{size/2}}rpx;transform-origin: {{size/2}}rpx {{size/2}}rpx">
+                  </view>
+                  <view wx:if='{{awardsConfig.slicePrizes.length==3}}' class="canvas-item2-after" style="background-color:{{index%2==0?'#faf5e7':'#f3e2c6'}};width:{{size/2}}rpx;height:{{size/2}}rpx;transform-origin: {{size/2}}rpx {{size/2}}rpx"></view>
+                </view>
+              </view>
+              <!-- 选项内容 -->
+              <view class="wk-wheel-list">
+                <view class="wk-wheel-item" data-index="{{index}}" wx:for="{{awardsConfig.slicePrizes}}" wx:key='key'>
+                  <view class="wk-wheel-icontent" style="height:262rpx;overflow:hidden;font-size:{{item.text.length>9?'20':'26'}}rpx;padding-top:5rpx;transform: rotate({{index*turnNum}}turn);transform-origin: 50% {{size/2-2}}rpx">
+                    <view class="canvas-litem-text-name">{{item.text}}</view>
+                    <view class="canvas-litem-text-image">
+                      <image src="{{item.img}}" mode="widthFix" style="width:80rpx;max-height:60rpx;padding:10rpx 0 0;"></image>
+                      <view class="canvas-litem-text-image-num">100</view>
+                    </view>
+                    <view style="font-size:20rpx;">{{item.num}}x1</view>
+                  </view>
+                </view>
+              </view>
+            </view>
+     
+    </view>
+    <view class="canvas-btn" bindtap="getLottery">
+      <view>
+        <view style="font-size:56rpx;color:#fff;padding-bottom:4rpx;">开始</view>
+        <view style="font-size:20rpx;color:#6F5942;font-weight:600;">点击抽奖</view>
       </view>
     </view>
-  </scroll-view> -->
-  <button bindtap="toElephant">跳转至大象医生小程序</button>
-  <button bindtap="toWebview">跳转至webview</button>
-</view>
+  </view>
+<!-- </view> -->

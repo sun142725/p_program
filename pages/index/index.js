@@ -1,129 +1,142 @@
-//index.js
-//获取应用实例
-const app = getApp()
+var app = getApp()
 
 Page({
+
+  /**
+   * 页面的初始数据
+   */
   data: {
-    motto: 'Hello World tororo',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    swipeArr: [
-      {
-        id: 0,
-        src: '../../assets/image/banner1.jpg'
-      },
-      {
-        id: 1,
-        src: '../../assets/image/banner2.jpg'
-      },
-      {
-        id: 2,
-        src: '../../assets/image/banner3.jpg'
-      },
-      {
-        id: 3,
-        src: '../../assets/image/banner4.jpg'
-      },
-    ],
-    toolArr: [
-      {
-        image: 'https://cdn.dr-elephant.net/drelephantweb/image/uindex-2.jpg',
-        text: '图文转换',
-        url: '/pages/tool/image-to-text/image-to-text'
-      },
-      {
-        image: 'https://gss0.bdstatic.com/70cFfyinKgQIm2_p8IuM_a/daf/pic/item/29381f30e924b899dddbd6ec60061d950b7bf67b.jpg',
-        text: '银行卡识别',
-        url: '/pages/tool/bank-to-text/bank-to-text'
-      },
-      {
-        image: 'https://gss0.bdstatic.com/70cFfyinKgQIm2_p8IuM_a/daf/pic/item/29381f30e924b899dddbd6ec60061d950b7bf67b.jpg',
-        text: '身份证识别',
-        url: '/pages/tool/idcard-to-text/idcard-to-text'
-      },
-      {
-        image: 'https://gss0.bdstatic.com/70cFfyinKgQIm2_p8IuM_a/daf/pic/item/29381f30e924b899dddbd6ec60061d950b7bf67b.jpg',
-        text: '图片切片',
-        url: '/pages/tool/cropper/cropper-example'
-      }
-    ]
+    awardsList: {},
+    list: [],
+    statusBarHeight: getApp().globalData.statusBarHeight,
+    scrollHeight: 200,
+    windowWidth:0,
+    windowHeight:0,
+    awardsConfig: {
+      count: 50,
+      slicePrizes: [
+        { text: "恭喜中大奖", img: "/assets/image/camera.png", title: "积分券x1", num: "1200", x: "1" },
+        { text: "医疗服务费", img: "/assets/image/camera.png", title: "积分券x1", num: "50", x: "2" },
+        { text: "健康保养费", img: "/assets/image/camera.png", title: "积分券x1", num: "500", x: "1" },
+        { text: "谢谢参与", img: "/assets/image/camera.png", title: "积分券x3", num: "0", x: "2" },
+        { text: "青春补偿费", img: "/assets/image/camera.png", title: "积分券x1", num: "200", x: "1" },
+        { text: "感恩奉献费", img: "/assets/image/camera.png", title: "积分券x1", num: "100", x: "2" },
+        { text: "咨询售后费", img: "/assets/image/camera.png", title: "积分券x1", num: "150", x: "1" },
+        { text: "谢谢参与", img: "/assets/image/camera.png", title: "积分券x1", num: "0", x: "1" },
+        { text: "咨询售后费", img: "/assets/image/camera.png", title: "积分券x1", num: "150", x: "1" },
+        { text: "谢谢参与", img: "/assets/image/camera.png", title: "积分券x1", num: "0", x: "1" }
+      ],
+    },
+    size: 640
   },
-  // 小程序跳转
-  toElephant: function(){
-    wx.navigateToMiniProgram({
-      appId: 'wx0def0337fd436dbd',
-      path: 'pages/index/home?sessionToken=2f68f675c6664ddb95bbb03affcf9e78&unionType=13&channelCode=10002',
-      extraData: {
-        accessMode: 'MN',
-        firstImMsg: JSON.stringify({
-          'contentText':'点击查看【用户体检报告】>>',
-          'template':'textLink',
-          'contentUrl': 'https://www.baidu.com'
-        })
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    var that = this;
+    that.initAdards()
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          windowWidth: res.windowWidth,
+          windowHeight: res.windowHeight,
+          scrollHeight: res.windowHeight - res.windowWidth / 750 * (getApp().globalData.statusBarHeight * 2 + 98),
+          size: 600
+        });
       },
-      envVersion: 'trial'
     })
   },
-  toWebview: function(){
-    wx.navigateTo({
-      url: '/pages/mine/mine'
+  onReady: function(e) {
+    let that = this,
+      fps = 60, awardsConfig = that.data.awardsConfig,
+        w = this.data.windowWidth / 750 * 600,
+        h = this.data.windowWidth / 750 * 600
+   
+    
+    wx.getSystemInfo({
+      success: function(res) {
+        that.setData({
+          contentHeight: res.windowHeight
+        });
+      },
     })
-  },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../mine/mine'
+    that.setData({
+      count: awardsConfig.count
     })
+    let len = awardsConfig.slicePrizes.length,
+        rotateDeg = 360 / len / 2 ,
+        list = [],
+        turnNum = 1 / len;
+    for (var i = 0; i < len; i++) {
+      list.push({
+        award: awardsConfig.slicePrizes[i].text,
+      });
+    };
+    that.setData({
+      list: list.concat(list)
+    });
   },
-  // 点击工具区域
-  clickTool: function(e){
-    let index = e.currentTarget.dataset.index
-    wx.navigateTo({
-      url: this.data.toolArr[index].url
-    })
-  },
-  vibrate: function(){
-    wx.vibrateLong({
-      success:(res)=>{
-        console.log('震动成功',res)
-      }
-    })
-  },
-  onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
+//初始化奖品数据 计算角度
+  initAdards() {
+    var that = this,
+      awardsConfig = that.data.awardsConfig;
+    var t = awardsConfig.slicePrizes.length; // 选项长度
+    var e = 1 / t,
+      i = 360 / t,
+      r = i - 90;
+
+    for (var g = 0; g < t; g++) {
+      awardsConfig.slicePrizes[g].item2Deg = g * i + 90 - i / 2 + "deg"; //当前下标 * 360/长度 + 90 - 360/长度/2
+      awardsConfig.slicePrizes[g].afterDeg = r + "deg";
+      awardsConfig.slicePrizes[g].opacity = '1';
     }
-  },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+    that.setData({
+      turnNum: e, // 页面的单位是turn
+      awardsConfig: awardsConfig,
     })
-  }
+  },
+  /**
+  * 抽奖处理函数：
+  */
+  getLottery: function () {
+    let that = this;
+    // 获取奖品配置
+    let awardsConfig = that.data.awardsConfig,
+      runNum = 12,
+      len = awardsConfig.slicePrizes.length,
+      awardIndex = 0;
+    awardIndex = parseInt(Math.random() * 6)
+    console.log("奖品序号：" + awardIndex);
+    // 旋转抽奖
+    app.runDegs = 0
+    app.runDegs = app.runDegs + (360 - app.runDegs % 360) + (360 * runNum - awardIndex * (360 / len))
+    //创建动画
+    let animationRunEasyIn = wx.createAnimation({
+      duration: 1000,
+      timingFunction: 'ease-in'
+    })
+    let animationRunLinear = wx.createAnimation({
+      duration: 1000,
+      timingFunction: 'linear'
+    })
+    let animationRunEasyOut = wx.createAnimation({
+      duration: 4000,
+      timingFunction: 'linear'
+    })
+    
+    animationRunEasyIn.rotate(360).step()
+    that.setData({
+      animationData: animationRunEasyIn.export()
+    })
+    var n = 2
+    setInterval(function () {
+      // animation.translateY(-60).step()
+      animationRunLinear.rotate(360*n).step()
+      n++;
+      console.log(n);
+      this.setData({
+        animationData: animationRunLinear.export()
+      })
+    }.bind(this), 1000)
+  },
 })
