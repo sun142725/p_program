@@ -1,5 +1,5 @@
 <view class="wrapper-content" style='margin:0 auto;'>
-  <view class="canvas-container-quiu" wx:for="{{list}}" style="-webkit-transform: rotate({{index * (360/list.length)}}deg);transform: rotate({{index * (360/list.length)}}deg);{{index%2==0?'background:#F2E86D':'background:#ffffff'}}"></view>
+  <view class="canvas-container-quiu" wx:for="{{list}}" style="-webkit-transform: rotate({{index * (360/list.length)}}deg);transform: rotate({{index * (360/list.length)}}deg);{{((index%2==0 && second%2==0) || (index%2!=0 && second%2!=0))?'background:#F2E86D':'background:#ffffff'}}"></view>
   <view class="canvas-container">
     <view animation="{{animationData}}" class="canvas-content" style='margin:0 auto;'>
       <canvas class="canvas-line" disable-scroll="true" bindtouchstart="canvasTouchStart" bindtouchmove="touchMove" bindtouchend="canvasTouchEnd" canvas-id="canvas"></canvas>
@@ -18,9 +18,9 @@
                     <view class="canvas-litem-text-name">{{item.text}}</view>
                     <view class="canvas-litem-text-image">
                       <image src="{{item.img}}" mode="widthFix" style="width:80rpx;max-height:60rpx;padding:10rpx 0 0;"></image>
-                      <view class="canvas-litem-text-image-num">100</view>
+                      <view class="canvas-litem-text-image-num">￥{{item.price}}</view>
                     </view>
-                    <view style="font-size:20rpx;">{{item.num}}x1</view>
+                    <view style="font-size:20rpx;">x{{item.num}}</view>
                   </view>
                 </view>
               </view>

@@ -15,19 +15,20 @@ Page({
     awardsConfig: {
       count: 50,
       slicePrizes: [
-        { text: "恭喜中大奖", img: "/assets/image/camera.png", title: "积分券x1", num: "1200", x: "1" },
-        { text: "医疗服务费", img: "/assets/image/camera.png", title: "积分券x1", num: "50", x: "2" },
-        { text: "健康保养费", img: "/assets/image/camera.png", title: "积分券x1", num: "500", x: "1" },
-        { text: "谢谢参与", img: "/assets/image/camera.png", title: "积分券x3", num: "0", x: "2" },
-        { text: "青春补偿费", img: "/assets/image/camera.png", title: "积分券x1", num: "200", x: "1" },
-        { text: "感恩奉献费", img: "/assets/image/camera.png", title: "积分券x1", num: "100", x: "2" },
-        { text: "咨询售后费", img: "/assets/image/camera.png", title: "积分券x1", num: "150", x: "1" },
-        { text: "谢谢参与", img: "/assets/image/camera.png", title: "积分券x1", num: "0", x: "1" },
-        { text: "咨询售后费", img: "/assets/image/camera.png", title: "积分券x1", num: "150", x: "1" },
-        { text: "谢谢参与", img: "/assets/image/camera.png", title: "积分券x1", num: "0", x: "1" }
+        { text: "恭喜中大奖", img: "/assets/image/camera.png", title: "亲亲卡",price: "5", num: "10", x: "1" },
+        { text: "给红红洗脚", img: "/assets/image/camera.png", title: "积分券",price: "5", num: "50", x: "2" },
+        { text: "做饭", img: "/assets/image/camera.png", title: "积分券",price: "5", num: "500", x: "1" },
+        { text: "扫地卡", img: "/assets/image/camera.png", title: "扫地卡",price: "5", num: "0", x: "2" },
+        { text: "洗碗", img: "/assets/image/camera.png", title: "积分券",price: "5", num: "200", x: "1" },
+        { text: "给红红捶背", img: "/assets/image/camera.png", title: "捶背x1",price: "5", num: "100", x: "2" },
+        { text: "洗衣服", img: "/assets/image/camera.png", title: "积分券x1",price: "5", num: "150", x: "1" },
+        { text: "免铺床卡", img: "/assets/image/camera.png", title: "积分券x1",price: "5", num: "0", x: "1" },
+        { text: "打游戏卡", img: "/assets/image/camera.png", title: "积分券x1",price: "5", num: "150", x: "1" },
+        { text: "谢谢参与", img: "/assets/image/camera.png", title: "积分券x1",price: "5", num: "0", x: "1" }
       ],
     },
-    size: 640
+    size: 640,
+    second: 0
   },
   /**
    * 生命周期函数--监听页面加载
@@ -45,6 +46,11 @@ Page({
         });
       },
     })
+    setInterval(()=>{
+      this.setData({
+        second: new Date().getSeconds()
+      })
+    }, 1000)
   },
   onReady: function(e) {
     let that = this,
@@ -106,10 +112,7 @@ Page({
       len = awardsConfig.slicePrizes.length,
       awardIndex = 0;
     awardIndex = parseInt(Math.random() * 6)
-    console.log("奖品序号：" + awardIndex);
-    // 旋转抽奖
-    app.runDegs = 0
-    app.runDegs = app.runDegs + (360 - app.runDegs % 360) + (360 * runNum - awardIndex * (360 / len))
+    console.log("奖品序号：" + awardIndex, awardsConfig.slicePrizes[awardIndex]);
     //创建动画
     let animationRunEasyIn = wx.createAnimation({
       duration: 1000,
@@ -121,7 +124,7 @@ Page({
     })
     let animationRunEasyOut = wx.createAnimation({
       duration: 4000,
-      timingFunction: 'linear'
+      timingFunction: 'ease-out'
     })
     
     animationRunEasyIn.rotate(360).step()
@@ -129,14 +132,25 @@ Page({
       animationData: animationRunEasyIn.export()
     })
     var n = 2
-    setInterval(function () {
+    var t = setInterval(function () {
       // animation.translateY(-60).step()
-      animationRunLinear.rotate(360*n).step()
+      animationRunLinear.rotate(360*n+1).step()
       n++;
       console.log(n);
       this.setData({
         animationData: animationRunLinear.export()
       })
     }.bind(this), 1000)
+
+    // 掉完接口后执行结束函数
+    setTimeout(()=>{
+      clearInterval(t)
+      animationRunEasyOut.rotate(360*n + 360 - awardIndex * (360 / len)).step()
+      n++;
+      console.log(n);
+      this.setData({
+        animationData: animationRunEasyOut.export()
+      })
+    }, 5000)
   },
 })

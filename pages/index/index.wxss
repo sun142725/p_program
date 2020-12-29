@@ -1,5 +1,5 @@
 .wrapper-content{
-  background: #E0CFBC;
+  background: #f65a41;
   border-radius: 50%;
   width: 720rpx;
   height: 720rpx;
@@ -38,7 +38,7 @@
 .canvas-content {
   overflow: hidden;
   box-sizing: content-box;
-  border: 20rpx solid #CDB193;
+  border: 20rpx solid #ff8672;
   position: absolute;
   left: 0;
   top: 0;
@@ -63,7 +63,7 @@
   height: 220rpx;
   border-radius: 50%;
   color: #f4e9cc;
-  border: 10px solid #cdb193;
+  border: 10px solid #ff8672;
   text-align: center;
   font-size: 40rpx;
   text-decoration: none;
@@ -79,7 +79,7 @@
   border-radius: 50%;
   box-sizing: border-box;
   padding: 22rpx 20rpx 0;
-  background: linear-gradient(134deg, rgba(232, 219, 197, 1) 0%, rgba(205, 177, 147, 1) 100%);
+  background: linear-gradient(134deg, #f9a89b 0%, #f65a41 100%);
   /* box-shadow:0px 5px 7px 0px rgba(255,255,255,1); */
   margin: auto;
   z-index: 102;
@@ -97,7 +97,7 @@
   border-width: 80rpx 20rpx 80rpx 20rpx;
   border-style: solid;
   border-color: transparent;
-  border-bottom-color: #ffab52;
+  border-bottom-color: #f65a41;
 }
 
 /* //css扇形 */
@@ -149,5 +149,5 @@
   margin: 0 auto;
   text-align: center;
   transform-origin: 50% 328rpx;
-  color: #AA8B6B;
+  color: #ff4903;
 }
