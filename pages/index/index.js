@@ -6,7 +6,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    awardsList: {},
     list: [],
     statusBarHeight: getApp().globalData.statusBarHeight,
     scrollHeight: 200,
@@ -15,22 +14,22 @@ Page({
     awardsConfig: {
       count: 50,
       slicePrizes: [
-        { text: "恭喜中大奖", img: "/assets/image/camera.png", title: "亲亲卡",price: "5", num: "10", x: "1" },
-        { text: "给红红洗脚", img: "/assets/image/camera.png", title: "积分券",price: "5", num: "50", x: "2" },
-        { text: "做饭", img: "/assets/image/camera.png", title: "积分券",price: "5", num: "500", x: "1" },
-        { text: "扫地卡", img: "/assets/image/camera.png", title: "扫地卡",price: "5", num: "0", x: "2" },
-        { text: "洗碗", img: "/assets/image/camera.png", title: "积分券",price: "5", num: "200", x: "1" },
-        { text: "给红红捶背", img: "/assets/image/camera.png", title: "捶背x1",price: "5", num: "100", x: "2" },
-        { text: "洗衣服", img: "/assets/image/camera.png", title: "积分券x1",price: "5", num: "150", x: "1" },
-        { text: "免铺床卡", img: "/assets/image/camera.png", title: "积分券x1",price: "5", num: "0", x: "1" },
-        { text: "打游戏卡", img: "/assets/image/camera.png", title: "积分券x1",price: "5", num: "150", x: "1" },
-        { text: "谢谢参与", img: "/assets/image/camera.png", title: "积分券x1",price: "5", num: "0", x: "1" }
+        { name: "恭喜中大奖", img: "/assets/image/camera.png", title: "亲亲卡",price: "5", num: "10", x: "1" },
+        { name: "给红红洗脚", img: "/assets/image/camera.png", title: "积分券",price: "5", num: "50", x: "2" },
+        { name: "做饭", img: "/assets/image/camera.png", title: "积分券",price: "5", num: "500", x: "1" },
+        { name: "扫地卡", img: "/assets/image/camera.png", title: "扫地卡",price: "5", num: "0", x: "2" },
+        { name: "洗碗", img: "/assets/image/camera.png", title: "积分券",price: "5", num: "200", x: "1" },
+        { name: "给红红捶背", img: "/assets/image/camera.png", title: "捶背x1",price: "5", num: "100", x: "2" },
+        { name: "洗衣服", img: "/assets/image/camera.png", title: "积分券x1",price: "5", num: "150", x: "1" },
+        { name: "免铺床卡", img: "/assets/image/camera.png", title: "积分券x1",price: "5", num: "0", x: "1" },
+        { name: "打游戏卡", img: "/assets/image/camera.png", title: "积分券x1",price: "5", num: "150", x: "1" },
+        { name: "谢谢参与", img: "/assets/image/camera.png", title: "积分券x1",price: "5", num: "0", x: "1" }
       ],
     },
     size: 640,
     second: 0,
-    circleNum: 0,
-    loading: false
+    circleNum: 0, // 当前转动圈数
+    loading: false, // 是否正在转
   },
   /**
    * 生命周期函数--监听页面加载

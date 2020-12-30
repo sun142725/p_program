@@ -15,12 +15,12 @@
               <view class="wk-wheel-list">
                 <view class="wk-wheel-item" data-index="{{index}}" wx:for="{{awardsConfig.slicePrizes}}" wx:key='key'>
                   <view class="wk-wheel-icontent" style="height:262rpx;overflow:hidden;font-size:{{item.text.length>9?'20':'26'}}rpx;padding-top:5rpx;transform: rotate({{index*turnNum}}turn);transform-origin: 50% {{size/2-2}}rpx">
-                    <view class="canvas-litem-text-name">{{item.text}}</view>
+                    <view class="canvas-litem-text-name">{{item.name}}</view>
                     <view class="canvas-litem-text-image">
                       <image src="{{item.img}}" mode="widthFix" style="width:80rpx;max-height:60rpx;padding:10rpx 0 0;"></image>
                       <view class="canvas-litem-text-image-num">￥{{item.price}}</view>
                     </view>
-                    <view style="font-size:20rpx;">x{{item.num}}</view>
+                    <!-- <view style="font-size:20rpx;">x{{item.num}}</view> -->
                   </view>
                 </view>
               </view>
