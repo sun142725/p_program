@@ -41,17 +41,10 @@
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "condition": {
-    "search": {
-      "list": []
-    },
-    "conversation": {
-      "list": []
-    },
     "plugin": {
       "list": []
     },
     "game": {
-      "currentL": -1,
       "list": []
     },
     "gamePlugin": {
@@ -85,6 +78,11 @@
           "name": "pages/index/web",
           "pathName": "pages/index/web",
           "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/prize/prize-detail",
+          "pathName": "pages/prize/prize-detail",
           "scene": null
         }
       ]

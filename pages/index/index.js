@@ -36,6 +36,7 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
+    wx.setStorageSync('prizesConfig', JSON.stringify(this.data.awardsConfig.slicePrizes))
     that.initAdards()
     wx.getSystemInfo({
       success: function (res) {

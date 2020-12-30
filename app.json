@@ -8,7 +8,8 @@
     "pages/tool/bank-to-text/bank-to-text",
     "pages/tool/idcard-to-text/idcard-to-text",
     "pages/tool/cropper/cropper",
-    "pages/tool/cropper/cropper-example"
+    "pages/tool/cropper/cropper-example",
+    "pages/prize/prize-detail"
   ],
   "window": {
     "backgroundTextStyle": "light",
