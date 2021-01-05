@@ -49,7 +49,29 @@ Page({
                 open: false,
                 pages: ['searchbar']
             }
+        ],
+        slideButtons: [
+            {
+                text: '删除',
+                src: '/assets/image/icon_chat3.png', // icon的路径
+                extClass: 'delete-icon'
+            }
         ]
+    },
+    onLoad: function(){
+        let prizesConfig = JSON.parse(wx.getStorageSync('prizesConfig'))
+        console.log(prizesConfig)
+        let list = prizesConfig.map((item, index)=> {
+                    var obj = Object.create(null)
+                    obj.id = index+1
+                    obj.open = false
+                    obj.config = item
+                    return obj
+                })
+                this.setData({
+                    list: list
+                })
+
     },
     kindToggle: function (e) {
         const id = e.currentTarget.id,
@@ -71,5 +93,8 @@ Page({
       this.setData({
         [`list[${index}].config.${key}`]: e.detail.value
       })
+    },
+    slideButtonTap: function(e){
+        console.log(e)
     }
 })
