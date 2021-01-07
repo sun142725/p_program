@@ -7,10 +7,9 @@
             <block wx:for="{{list}}" wx:key="id">
                 <view class="kind-list__item">
                     <view id="{{item.id}}" class="weui-slidecells kind-list__item-hd {{item.open ? 'kind-list__item-hd_show' : ''}}" bindtap="kindToggle">
-                        <!-- <view class="weui-flex__item">{{item.config.name}}</view> -->
                         <mp-slideview buttons="{{slideButtons}}" icon="{{true}}" bindbuttontap="slideButtonTap">
                             <view class="weui-slidecell">
-                                {{item.config.name}}
+                                {{item.name}}
                             </view>
                         </mp-slideview>
                         <!-- <image class="kind-list__img" src="images/icon_nav_{{item.id}}.png"></image> -->
@@ -19,8 +18,8 @@
                     <view class="kind-list__item-bd {{item.open ? 'kind-list__item-bd_show' : ''}}">
                         <view class="weui-cells {{item.open ? 'weui-cells_show' : ''}}">
                             <block>
-                                <mp-cell value="名称："><input slot="footer" type="text" bindinput='inputHandler' data-key="name" data-index="{{index}}" placeholder='请输入奖品名称' value="{{item.config.name}}" /></mp-cell>
-                                <mp-cell value="奖励："><input slot="footer" type="text" bindinput='inputHandler' data-key="title" placeholder='请输入奖品内容' value="{{item.config.title}}" /></mp-cell>
+                                <mp-cell value="名称："><input slot="footer" type="text" bindinput='inputHandler' data-key="name" data-index="{{index}}" placeholder='请输入奖品名称' value="{{item.name}}" /></mp-cell>
+                                <mp-cell value="奖励："><input slot="footer" type="text" bindinput='inputHandler' data-key="title" data-index="{{index}}" placeholder='请输入奖品内容' value="{{item.title}}" /></mp-cell>
                             </block>
                         </view>
                     </view>
@@ -29,9 +28,7 @@
         </view>
     </view>
     <view class="page__ft">
-        <view class="ft-img-cnt" bindtap="themeToggle">
-          <button>保存</button>
-          <button>放弃</button>
-        </view>
+        <button bindtap="save">保存</button>
+        <button bindtap="cancel">放弃</button>
     </view>
 </view>

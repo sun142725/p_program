@@ -81,3 +81,9 @@
     bottom: 0;
     margin: auto;
 }
+.page__ft{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}

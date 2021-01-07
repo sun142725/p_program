@@ -30,13 +30,24 @@ Page({
     second: 0,
     circleNum: 0, // 当前转动圈数
     loading: false, // 是否正在转
+    t:null
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    
+    setInterval(()=>{
+      this.setData({
+        second: new Date().getSeconds()
+      })
+    }, 1000)
+  },
+  onShow: function(){
     var that = this;
-    wx.setStorageSync('prizesConfig', JSON.stringify(this.data.awardsConfig.slicePrizes))
+    this.setData({
+      "awardsConfig.slicePrizes" : wx.getStorageSync('prizesConfig') ? JSON.parse(wx.getStorageSync('prizesConfig')) : this.data.awardsConfig.slicePrizes
+    })
     that.initAdards()
     wx.getSystemInfo({
       success: function (res) {
@@ -48,11 +59,6 @@ Page({
         });
       },
     })
-    setInterval(()=>{
-      this.setData({
-        second: new Date().getSeconds()
-      })
-    }, 1000)
   },
   onReady: function(e) {
     let that = this,
@@ -67,9 +73,6 @@ Page({
           contentHeight: res.windowHeight
         });
       },
-    })
-    that.setData({
-      count: awardsConfig.count
     })
     let len = awardsConfig.slicePrizes.length,
         rotateDeg = 360 / len / 2 ,
@@ -118,44 +121,60 @@ Page({
     var n = this.data.circleNum
     // 获取奖品配置
     let awardsConfig = that.data.awardsConfig,
-      runNum = 12,
-      len = awardsConfig.slicePrizes.length,
-      awardIndex = 0;
-    awardIndex = parseInt(Math.random() * 6)
-    console.log("奖品序号：" + awardIndex, awardsConfig.slicePrizes[awardIndex]);
+      runNum = 12;
+    
     //创建动画
     let animationRunEasyIn = wx.createAnimation({
       duration: 1000,
       timingFunction: 'ease-in'
     })
     let animationRunLinear = wx.createAnimation({
-      duration: 1000,
+      duration: 500,
       timingFunction: 'linear'
     })
-    let animationRunEasyOut = wx.createAnimation({
-      duration: 4000,
-      timingFunction: 'ease-out'
-    })
+    
     
     animationRunEasyIn.rotate(n*360+360).step()
     that.setData({
       animationData: animationRunEasyIn.export()
     })
      n = n+2
-    var t = setInterval(function () {
+    this.data.t = setInterval(function () {
       // animation.translateY(-60).step()
-      animationRunLinear.rotate(360*n+1).step()
+      animationRunLinear.rotate(360*n).step()
       n++;
-      console.log(n);
+      this.data.circleNum = n
       this.setData({
         animationData: animationRunLinear.export()
       })
-    }.bind(this), 1000)
+    }.bind(this), 500)
 
-    // 掉完接口后执行结束函数
+    // 先转个几秒再去掉接口  掉完接口后执行结束函数
     setTimeout(()=>{
-      clearInterval(t)
-      animationRunEasyOut.rotate(360*n + 360 - awardIndex * (360 / len)).step()
+      this.computeResult()
+    }, 4000)
+  },
+  // 计算结果
+  computeResult(){
+    let awardIndex = 0;
+    awardIndex = parseInt(Math.random() * 6)
+    console.log("奖品序号：" + awardIndex, this.data.awardsConfig.slicePrizes[awardIndex]);
+
+    setTimeout(() => {
+      clearInterval(this.data.t)
+      this.runEasyOut(awardIndex)
+    }, 1000);
+  },
+  // 减速停止
+  runEasyOut(awardIndex){
+    let n = this.data.circleNum
+    let len = this.data.awardsConfig.slicePrizes.length
+
+    let animationRunEasyOut = wx.createAnimation({
+      duration: 4000,
+      timingFunction: 'ease-out'
+    })
+    animationRunEasyOut.rotate(360*n + 360 - awardIndex * (360 / len)).step()
       n++;
       console.log(n);
       this.data.circleNum = n
@@ -163,6 +182,12 @@ Page({
       this.setData({
         animationData: animationRunEasyOut.export()
       })
-    }, 5000)
   },
+  // 编辑奖品配置
+  editConfig(){
+    wx.setStorageSync('prizesConfig', JSON.stringify(this.data.awardsConfig.slicePrizes))
+    wx.navigateTo({
+      url: '/pages/prize/prize-detail',
+    })
+  }
 })

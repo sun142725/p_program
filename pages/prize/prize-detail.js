@@ -1,55 +1,7 @@
 
 Page({
     data: {
-        list: [
-            {
-                id: 'form',
-                name: '表单',
-                open: false,
-                pages: ['cell', 'slideview', 'form', 'uploader'],
-                config: {
-                  name: '恭喜中大奖',
-                  img: "https://baidu.jpg",
-                  title: "4233"
-                }
-            },
-            {
-                id: 'widget',
-                name: '基础组件',
-                open: false,
-                pages: [
-                    'article',
-                    'icons',
-                    'badge',
-                    'flex',
-                    'footer',
-                    'gallery',
-                    'grid',
-                    'loadmore',
-                    'loading',
-                    'panel',
-                    'preview'
-                ]
-            },
-            {
-                id: 'feedback',
-                name: '操作反馈',
-                open: false,
-                pages: ['dialog', 'msg', 'half-screen-dialog', 'actionsheet', 'toptips']
-            },
-            {
-                id: 'nav',
-                name: '导航相关',
-                open: false,
-                pages: ['navigation', 'tabbar']
-            },
-            {
-                id: 'search',
-                name: '搜索相关',
-                open: false,
-                pages: ['searchbar']
-            }
-        ],
+        list: [],
         slideButtons: [
             {
                 text: '删除',
@@ -59,19 +11,18 @@ Page({
         ]
     },
     onLoad: function(){
+        this.init()
+    },
+    init(){
         let prizesConfig = JSON.parse(wx.getStorageSync('prizesConfig'))
-        console.log(prizesConfig)
         let list = prizesConfig.map((item, index)=> {
-                    var obj = Object.create(null)
-                    obj.id = index+1
-                    obj.open = false
-                    obj.config = item
-                    return obj
+                    item.id = index+1
+                    // item.open = false
+                    return item
                 })
                 this.setData({
                     list: list
                 })
-
     },
     kindToggle: function (e) {
         const id = e.currentTarget.id,
@@ -91,10 +42,16 @@ Page({
       console.log(e)
       let { index, key } = e.currentTarget.dataset
       this.setData({
-        [`list[${index}].config.${key}`]: e.detail.value
+        [`list[${index}].${key}`]: e.detail.value
       })
     },
     slideButtonTap: function(e){
         console.log(e)
+    },
+    save(){
+        wx.setStorageSync('prizesConfig', JSON.stringify(this.data.list))
+    },
+    cancel(){
+        this.init()
     }
 })

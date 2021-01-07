@@ -34,4 +34,5 @@
       </view>
     </view>
   </view>
+  <view><button bindtap="editConfig">编辑</button></view>
 <!-- </view> -->
