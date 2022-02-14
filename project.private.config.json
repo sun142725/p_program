@@ -1,0 +1,57 @@
+{
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "id": -1,
+          "name": "上传图片",
+          "pathName": "pages/tool/image-to-text/image-to-text",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "银行卡识别",
+          "pathName": "pages/tool/bank-to-text/bank-to-text",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/mine/mine",
+          "pathName": "pages/mine/mine",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 3,
+          "name": "pages/index/web",
+          "pathName": "pages/index/web",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/prize/prize-detail",
+          "pathName": "pages/prize/prize-detail",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/mycard/guest/guest",
+          "pathName": "pages/mycard/guest/guest",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

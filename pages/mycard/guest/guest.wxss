@@ -1,0 +1,35 @@
+/* pages/mycard/guest/guest.wxss */
+.container{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.box{
+  position: absolute;
+  width: 600rpx;
+  height: 70%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 10%;
+  background-color: blue;
+  transition: all 2s;
+}
+.box.min{
+  transform-origin: center center 100rpx;
+  transform: rotateX(180deg) scale(0.8,0.8);
+}
+.box.animate{
+  animation: up 2s 1;
+}
+@keyframes up{
+  0% {
+    top: 10%
+  }
+  40% {
+    top: -45%
+  }
+	100% {
+    top: 10%
+  }
+}

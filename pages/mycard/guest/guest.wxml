@@ -1,0 +1,8 @@
+<!--pages/mycard/guest/guest.wxml-->
+<block>
+  <view class="container">
+    <view class="{{boxName}}">3267372637236</view>
+  </view>
+  <button style="position: absolute;top:0;left: 0;" bindtap="startAnimate">开始</button>
+  <button style="position: absolute;top:0;left: 200rpx;" bindtap="stopAnimate">恢复</button>
+</block>

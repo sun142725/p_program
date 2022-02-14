@@ -9,7 +9,8 @@
     "pages/tool/idcard-to-text/idcard-to-text",
     "pages/tool/cropper/cropper",
     "pages/tool/cropper/cropper-example",
-    "pages/prize/prize-detail"
+    "pages/prize/prize-detail",
+    "pages/mycard/guest/guest"
   ],
   "window": {
     "backgroundTextStyle": "light",
