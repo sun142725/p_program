@@ -1,8 +1,12 @@
 <!--pages/mycard/guest/guest.wxml-->
 <block>
   <view class="container">
-    <view class="{{boxName}}">呈上</view>
+    <view class="card-container">
+      <view class="{{boxName}}">呈上</view>
+      <view class="flap {{flapName}}"></view>
+      <view class="outer-cover"></view>
+    </view>
   </view>
   <button style="position: absolute;top:0;left: 0;" bindtap="startAnimate">开始</button>
-  <button style="position: absolute;top:0;left: 200rpx;" bindtap="stopAnimate">恢复</button>
+  <button style="position: absolute;top:0;left: 200rpx;z-index: 999;" bindtap="stopAnimate">恢复</button>
 </block>

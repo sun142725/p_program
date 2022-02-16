@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    boxName: 'box min'
+    boxName: 'box min',
+    flapName: ''
   },
 
   /**
@@ -28,15 +29,23 @@ Page({
   onShow: function () {
 
   },
-  startAnimate: function(){
+  openFlap: function(){
     this.setData({
+      flapName: 'open',
       boxName: 'box animate'
     })
   },
-  stopAnimate: function(){
+  closeFlap: function(){
     this.setData({
+      flapName: '',
       boxName: 'box min'
     })
+  },
+  startAnimate: function(){
+    this.openFlap()
+  },
+  stopAnimate: function(){
+   this.closeFlap()
   },
   
 
