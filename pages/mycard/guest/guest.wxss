@@ -71,7 +71,7 @@
   background-color: blue;
   transform: rotateX(0) scale(1);
   transform-origin: center center 200rpx;
-  transition: all 2s cubic-bezier(0, 0, 0.05, 1);
+  transition: all 2s cubic-bezier(0, 0, 0.05, 1) 0.8s;
   z-index: 3;
 }
 
@@ -81,22 +81,23 @@
 }
 
 .box.animate {
-  animation: up 2s ease 0.4s 1;
-  z-index: 3;
+  animation: up 3s ease 0.4s 1;
+  transform: scale(1, 1);
 }
 
 @keyframes up {
   0% {
     top: 10rpx;
+    transform: scale(0.8, 0.8);
   }
 
   40% {
     top: -600rpx;
-    z-index: 3
+    transform: scale(0.8, 0.8);
   }
 
   100% {
     top: 10rpx;
-    z-index: 3
+    transform: scale(1, 1);
   }
 }

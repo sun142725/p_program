@@ -1,0 +1,6 @@
+/* pages/mycard/insertcard/insertcard.wxss */
+.autograph{
+  width: 100%;
+  height: 300rpx;
+  background-color: #333;
+}

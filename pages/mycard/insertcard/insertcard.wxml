@@ -1,0 +1,23 @@
+<!--pages/mycard/insertcard/insertcard.wxml-->
+<block>
+  <view>
+    <mp-cell title="姓名：">
+      <input slot="footer" bindinput="handleinput" data-key='friendName' type="nickname" placeholder="请输入昵称" />
+    </mp-cell>
+    <mp-cell value="手机号: ">
+      <input slot="footer" type="number" bindinput="handleinput" data-key='friendMobile' placeholder="请输入手机号" />
+    </mp-cell>
+    <mp-cell value="手动签名: "></mp-cell>
+    <canvas
+    type="2d"
+    id="autograph"
+    canvas-id="autograph"
+    class="autograph"
+    bindtouchstart="handleMousedown"
+    bindtouchmove="handleMousemove"
+    bindtouchend="handleMouseup"
+    disable-scroll="true"></canvas>
+    <view><button bindtap="clearCanvasData">清空</button><button bindtap="revoke">撤销</button></view>
+    <button bindtap="save">保存</button>
+  </view>
+</block>

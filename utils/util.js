@@ -14,6 +14,20 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 /**
+ * base64转临时地址
+ * @param {base64} base64Url 文件地址
+ * @param {string } format 类型
+ */
+export function getTempPathByBase64(base64Url, format = 'png') {
+  var curTime = new Date().getTime();
+  var imageData = base64Url.replace(/^data:image\/\w+;base64,/, "");
+  var imgPath = `${wx.env.USER_DATA_PATH}/tororo_${curTime}.${format}`
+  var fs = wx.getFileSystemManager();
+  fs.writeFileSync(imgPath, imageData, "base64");
+  console.log('生成本地临时路径', imgPath)
+  return imgPath
+}
+/**
  * 
  * @param {* string } menu 目录
  * @param {* string } name 
@@ -38,6 +52,6 @@ export function uploadFile(menu = 'image-to-word', name = 'img', filePath) {
 
 }
 
-module.exports = {
-  formatTime: formatTime
-}
+// module.exports = {
+//   formatTime: formatTime
+// }

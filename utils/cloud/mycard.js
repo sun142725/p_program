@@ -1,13 +1,13 @@
 import {
-  imageToWordCollection
+  mycardCollection
 } from './db.js'
 //  获取列表
 export function getRecord() {
-  return imageToWordCollection.where().get()
+  return mycardCollection.where().get()
 }
 // 根据_id查询明细
 export function getRecordById() {
-  return imageToWordCollection.where().get()
+  return mycardCollection.where().get()
 }
 
 /**
@@ -24,9 +24,9 @@ function getUseData(keys, data) {
 }
 // 根据_id修改
 export function updateRecordById(data) {
-  const updateData = getUseData('key')
+  const updateData = getUseData('key,id', data)
   return new Promise(() => {
-    imageToWordCollection.where({
+    mycardCollection.where({
       _id: data.id
     }).update({
       data: {
@@ -36,13 +36,37 @@ export function updateRecordById(data) {
   })
   return
 }
-// 插入转换记录
-export function insert(data) {
-  return imageToWordCollection.add({
+// 插入记录
+export function insertRecord(data) {
+  const updateData = getUseData('friendMobile,friendName,autographPic', data)
+  return mycardCollection.add({
     data: {
-      fileID: data.fileID,
-      words: data.words,
-      createTime: new Date().getTime()
+      ...updateData,
+      _createTime: new Date(),
+      _updateTime: new Date()
     }
+  })
+}
+// 更新记录
+export function updateRecord(data) {
+  const updateData = getUseData('friendMobile,friendName,autographPic', data)
+  return mycardCollection.where({
+    '_id': data.id
+  }).update({
+    data: {
+      ...updateData,
+      _updateTime: new Date()
+    },
+
+  })
+}
+// 查询记录列表
+export function queryRecord(data) {
+  return mycardCollection.where()
+}
+// 查询记录明细
+export function queryRecordById(data) {
+  return mycardCollection.where({
+    '_id': data.id
   })
 }

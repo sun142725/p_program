@@ -10,7 +10,9 @@
     "pages/tool/cropper/cropper",
     "pages/tool/cropper/cropper-example",
     "pages/prize/prize-detail",
-    "pages/mycard/guest/guest"
+    "pages/mycard/guest/guest",
+    "pages/mycard/insertcard/insertcard",
+    "pages/mycard/cardlist/cardlist"
   ],
   "window": {
     "backgroundTextStyle": "light",
