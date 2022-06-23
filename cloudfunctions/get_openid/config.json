@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "openapi": [
+      "auth.code2Session",
+      "auth.getPluginOpenPId"
+    ]
+  }
+}

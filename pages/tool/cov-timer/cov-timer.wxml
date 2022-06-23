@@ -1,0 +1,30 @@
+<!-- pages/tool/cov-timer/cov-timer.wxml -->
+<wxs src="./cov-timer.wxs" module="date" />
+<block wx:if="{{!showRemainTime}}">
+  <mp-cell bindtap="setClipboardData" value="核酸时间：">
+    <date-time slot="footer" mode="dateminute" value="{{recordTime}}" bindchange="bindDateChange" bindinitValue="bindDateChange">
+      {{recordTime || '请选择'}}
+    </date-time>
+  </mp-cell>
+  <mp-cell value="有效期: ">
+    <picker slot="footer" bindchange="bindPickerChange" value="{{index}}" range="{{timeList}}" range-key="text">
+      <view class="picker">
+        {{timeList[timeIndex].value}}小时 >
+      </view>
+    </picker>
+  </mp-cell>
+  <mp-cell value="过期提醒：">
+    <switch checked="isOpenRemind" slot="footer" bindchange="bindSwitchchange"></switch>
+  </mp-cell>
+  <mp-cell value="提醒时间："><text slot="footer">提前24小时</text></mp-cell>
+  <button bindtap="bindTemplate">订阅消息</button>
+  <button wx:if="{{remainTime > 0}}" bindtap="cacal">取消</button>
+</block>
+<block wx:else>
+  <view class="remain-time">
+  <view>距离核酸失效</view>
+  <text class="remain-time-text">{{remainTime > 0 ? date.countUpData(remainTime) : '核酸已过期'}}</text>
+  <view>核酸失效时间：{{date.formatDate(curCovItem.expireTime)}}</view>
+  </view>
+  <button bindtap="addRecord">记录核酸时间</button>
+</block>

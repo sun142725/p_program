@@ -12,7 +12,8 @@
     "pages/prize/prize-detail",
     "pages/mycard/guest/guest",
     "pages/mycard/insertcard/insertcard",
-    "pages/mycard/cardlist/cardlist"
+    "pages/mycard/cardlist/cardlist",
+    "pages/tool/cov-timer/cov-timer"
   ],
   "window": {
     "backgroundTextStyle": "light",
