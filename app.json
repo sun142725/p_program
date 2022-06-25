@@ -1,19 +1,7 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/mine/mine",
-    "pages/logs/logs",
-    "components/modal/modal",
-    "pages/tool/image-to-text/image-to-text",
-    "pages/tool/bank-to-text/bank-to-text",
-    "pages/tool/idcard-to-text/idcard-to-text",
-    "pages/tool/cropper/cropper",
-    "pages/tool/cropper/cropper-example",
-    "pages/prize/prize-detail",
-    "pages/mycard/guest/guest",
-    "pages/mycard/insertcard/insertcard",
-    "pages/mycard/cardlist/cardlist",
-    "pages/tool/cov-timer/cov-timer"
+    "pages/tool/cov-timer/cov-timer",
+    "pages/tool/cov-timer-form/cov-timer-form"
   ],
   "window": {
     "backgroundTextStyle": "light",

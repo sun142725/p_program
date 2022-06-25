@@ -1,44 +1,24 @@
 // pages/tool/cov-timer/cov-timer.js
 import {
-  insert,
   queryCovEndTime
 } from '../../../utils/cloud/covRecord'
-const timeList = [24, 48, 72, 96, 120, 144, 168]
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    timeList: timeList.map(v => {
-      return ({
-        value: v,
-        text: `${v}小时(${Math.floor(v/24)}天)`
-      })
-    }),
-    timeIndex: 2,
-    recordTime: '',
-    isOpenRemind: true,
     remainTime: null,
     timer: null,
-    showRemainTime: false,
-    curCovItem: null
+    curCovItem: {
+      state: 0
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    // wx.login({
-    //   success (res) {
-    //     if (res.code) {
-    //      console.log('code')
-    //     } else {
-    //       console.log('登录失败！' + res.errMsg)
-    //     }
-    //   }
-    // })
-    this.init()
   },
 
   /**
@@ -49,13 +29,14 @@ Page({
   },
   init() {
     queryCovEndTime().then(res => {
-      console.log(res)
       this.setData({
         remainTime: res.remainTime,
         curCovItem: res.data || {}
       })
       if (res.remainTime > 0) {
         this.startCount()
+      }
+      if (res.state !== undefined && res.state !== 0) {
         this.setData({
           showRemainTime: true
         })
@@ -77,67 +58,24 @@ Page({
       }
     }, 1000)
   },
-  addRecord(){
-    this.setData({
-      showRemainTime: false
+  addRecord() {
+    wx.navigateTo({
+      url: '/pages/tool/cov-timer-form/cov-timer-form',
     })
   },
-  cacal(){
-    this.setData({
-      showRemainTime: true
-    })
-  },
-
   /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    console.log('onshow')
+    this.init()
   },
-  bindDateChange(e) {
-    console.log(e.detail.value)
-    this.setData({
-      recordTime: e.detail.value
-    })
-  },
-  bindSwitchchange(e) {
-    this.setData({
-      isOpenRemind: e.detail.value
-    })
-  },
-  bindPickerChange(e){
-    this.setData({
-      timeIndex: e.detail.value
-    })
-  },
-  bindTemplate() {
-    console.log('触发授权', {
-      recordTime: this.data.recordTime,
-      taskTime: this.data.timeList[this.data.timeIndex].value,
-      isOpenRemind: this.data.isOpenRemind
-    })
-wx.showLoading()
-    insert({
-      recordTime: this.data.recordTime,
-      taskTime: this.data.timeList[this.data.timeIndex].value,
-      isOpenRemind: this.data.isOpenRemind
-    }).then(res => {
-      this.init()
-    })
-    // wx.requestSubscribeMessage({
-    //   tmplIds: ["JqkpCqiRGJ4Tl1FFTyPxlNCQ0sx_0teiIT8ZtbgnZqs"],
-    //   success: () => {
-    //     console.log('用户同意授权')
-    //   },
-    //   complete: () => {}
-    // })
-  },
-
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide() {
-
+    clearTimeout(this.data.timer)
+    this.data.timer = null
   },
 
   /**

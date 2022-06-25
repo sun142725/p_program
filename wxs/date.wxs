@@ -1,0 +1,29 @@
+function template(string, data) {
+  var reg = getRegExp("\${(\w*)}", "g")
+  var res = string.replace(reg, function (match, index) {
+      return data[index]
+  })
+  return res
+}
+/**
+ * 时间格式化为时分秒  '3天00时00分00秒'
+ * @param { Number } time 
+ */
+function countUpData(time = 0, dateRex = "${day}天${hour}时${minute}分${second}秒") {
+  var day = Math.floor(time / (24 * 60 * 60 * 1000))
+  var hour = Math.floor((time % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000))
+  var minute = Math.floor(time % (60 * 60 * 1000) / (60 * 1000));
+  var second = Math.floor(time % (60 * 1000) / 1000);
+  hour = hour < 10 ? '0' + hour : '' + hour,
+    minute = minute < 10 ? '0' + minute : '' + minute,
+    second = second < 10 ? '0' + second : '' + second
+  return template(dateRex, {day,hour,minute,second})
+}
+
+function formatDate(time = 0) {
+  return getDate(time).toLocaleString()
+}
+module.exports = {
+  countUpData: countUpData,
+  formatDate: formatDate
+}

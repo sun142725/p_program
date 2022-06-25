@@ -1,0 +1,21 @@
+<!--pages/tool/cov-timer-form/cov-timer-form.wxml-->
+<block>
+  <mp-cell bindtap="setClipboardData" value="核酸时间：">
+    <date-time slot="footer" mode="dateminute" value="{{recordTime}}" bindchange="bindDateChange" bindinitValue="bindDateChange">
+      {{recordTime || '请选择'}}
+    </date-time>
+  </mp-cell>
+  <mp-cell value="有效期: ">
+    <picker slot="footer" bindchange="bindPickerChange" value="{{index}}" range="{{timeList}}" range-key="text">
+      <view class="picker">
+        {{timeList[timeIndex].value}}小时 >
+      </view>
+    </picker>
+  </mp-cell>
+  <mp-cell value="过期提醒：">
+    <switch checked="isOpenRemind" slot="footer" bindchange="bindSwitchchange"></switch>
+  </mp-cell>
+  <mp-cell value="提醒时间："><text slot="footer">提前24小时</text></mp-cell>
+  <button bindtap="bindTemplate">立即记录</button>
+</block>
+

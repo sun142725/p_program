@@ -1,0 +1,11 @@
+/* pages/tool/cov-timer-form/cov-timer-form.wxss */
+/* pages/tool/cov-timer/cov-timer.wxss */
+
+.remain-time{
+  text-align: center;
+  padding: 200rpx 20rpx;
+}
+.remain-time-text {
+  font-size: 46rpx;
+  line-height: 64rpx;
+}

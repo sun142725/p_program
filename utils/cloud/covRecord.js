@@ -21,6 +21,7 @@ export async function queryCovEndTime() {
         remainTime: remainTime,
         data: {
           ...covItem,
+          state: 1,
         },
         errCode: 0,
         errMsg: ''
@@ -28,6 +29,10 @@ export async function queryCovEndTime() {
     } else {
       return {
         remainTime: null,
+        errCode: '0',
+        data: {
+          state: 2
+        },
         errMsg: '已过期'
       }
     }
@@ -35,6 +40,10 @@ export async function queryCovEndTime() {
   } else {
     return {
       remainTime: null,
+      errCode: '0',
+      data: {
+        state: 0
+      },
       errMsg: '未查询到记录'
     }
   }
@@ -55,7 +64,8 @@ export async function insert(data) {
       taskTime: data.taskTime,
       recordTime: data.recordTime,
       expireTime: expireTime,
-      isOpenRemind: data.isOpenRemind
+      isOpenRemind: data.isOpenRemind,
+      sendState: data.sendState || 0
     }
   })
 }
