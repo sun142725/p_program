@@ -1,0 +1,12 @@
+<!--components/cov-cell/cov-cell.wxml-->
+<view class="cov-cell">
+  <view class="cell-label">
+    <image class="cell-icon" src="http://re0ug2h59.hn-bkt.clouddn.com/218d1ebc6a8717887ee9117e51e5e398_1.jpg" /><text class="cell-label-text">{{label}}</text>
+  </view>
+  <view class="cell-value">
+    <block wx:if="{{value}}">{{value}}</block>
+    <block wx:else>
+      <slot></slot>
+    </block>
+  </view>
+</view>

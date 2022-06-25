@@ -1,5 +1,10 @@
 /* pages/tool/cov-timer-form/cov-timer-form.wxss */
-/* pages/tool/cov-timer/cov-timer.wxss */
+.cov-timer-form{
+  background: #FFFFFF;
+  width: 100%;
+  height: 100%;
+  padding: 40rpx 44rpx;
+}
 
 .remain-time{
   text-align: center;
@@ -8,4 +13,17 @@
 .remain-time-text {
   font-size: 46rpx;
   line-height: 64rpx;
+}
+
+.cov-btn {
+  width: 580rpx;
+  height: 80rpx;
+  background: linear-gradient(180deg, #9FCDFB 0%, #669EF6 100%);
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 132rpx;
 }

@@ -1,10 +1,16 @@
 <!-- pages/tool/cov-timer/cov-timer.wxml -->
 <wxs src="../../../wxs/date.wxs" module="date" />
-<block >
+<view class="cov-timer-container">
   <view class="remain-time">
-  <view>距离核酸失效</view>
-  <text class="remain-time-text">{{remainTime > 0 ? date.countUpData(remainTime) : '核酸已过期'}}</text>
-  <view>核酸失效时间：{{date.formatDate(curCovItem.expireTime)}}</view>
+    <view class="title">距离核酸失效</view>
+    <view class="remain-time-box">
+      <view class="time-1">{{date.countUpData(remainTime, "${day}")}}</view>
+      <view class="time-2">{{date.countUpData(remainTime, "${hour}")}}</view>
+      <view class="time-2">{{date.countUpData(remainTime, "${minute}")}}</view>
+      <view class="time-2">{{date.countUpData(remainTime, "${second}")}}</view>
+    </view>
+    <view class="expire-time">核酸失效时间</view>
+    <view class="expire-time">{{date.formatDate(curCovItem.expireTime)}}</view>
   </view>
-  <button bindtap="addRecord">记录核酸时间</button>
-</block>
+  <button class="cov-btn" bindtap="addRecord">记录核酸时间</button>
+</view>

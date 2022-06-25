@@ -29,6 +29,7 @@ Page({
   },
   init() {
     queryCovEndTime().then(res => {
+      console.log('res', res)
       this.setData({
         remainTime: res.remainTime,
         curCovItem: res.data || {}

@@ -21,6 +21,11 @@ exports.main = async (event, context) => {
   } catch (err) {
     // 错误处理
     // err.errCode !== 0
+    const log = cloud.logger()
+    log.error({
+      name: 'send_template_msg',
+      err: err
+    })
     throw err
   }
 }

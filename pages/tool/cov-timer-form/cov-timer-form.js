@@ -64,7 +64,7 @@ Page({
       isOpenRemind: this.data.isOpenRemind
     })
     wx.requestSubscribeMessage({
-      tmplIds: ["JqkpCqiRGJ4Tl1FFTyPxlNCQ0sx_0teiIT8ZtbgnZqs"],
+      tmplIds: ["oNLCnRDriuzA-YURfJgBQuxvf2lr8JiJYowyzDBkwGw"],
       success: () => {
         console.log('用户同意授权')
         this.insertRecord()

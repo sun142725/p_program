@@ -1,7 +1,8 @@
 {
+  "navigationBarBackgroundColor": "#68A0F7",
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "72小时核酸",
   "usingComponents": {
-    "mp-cell": "../../../components/cell/cell",
-    "mp-cells": "../../../components/cells/cells",
     "date-time": "../../../components/date-time/date-time"
   }
 }
